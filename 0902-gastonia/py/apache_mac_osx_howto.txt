@@ -1,0 +1,17 @@
+To get Python working in Mac OS:
+	1) edit httpd.conf	(/etc/apache2/httpd.conf)
+		* find a high-level  <Directory>  tag where you want to run pything
+			* on the Options line, add "ExecCGI", eg:
+	    			Options Indexes FollowSymLinks MultiViews ExecCGI Includes
+
+		* add a handler for python
+			* find <IfModule mime_module>
+			* add this inside:
+					AddHandler cgi-script .py
+	
+	2) restart apache
+			sudo apachectl restart
+			
+	3) make sure your python files are readable and executable
+		chmod a+rx	<yourfile>.py
+

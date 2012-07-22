@@ -1,0 +1,273 @@
+- we have only a few top level things that we recognize
+	<site>
+	<app>
+	<page>
+	<module>  ???
+	
+	<model>
+
+	<class>
+	<singleton>
+	<mixin>
+	<pattern> ???
+
+
+	- anywhere inside we can mix <dox>...</dox> blocks
+		- which are stripped out of the output
+		- eventually we'll have rudimentary ways of auto-extracting function/var context etc
+		- for now, we'll just infer the context (class/instance/static)
+			and you manually signal what the doc is for:
+			<instance>
+				...
+				<dox for='someVar' type='string' optional='true' summary='Blah'/>
+				...
+			</instance>
+			<class>
+				...
+				<dox for='methodName()' return='boolean'>Blah</dox>
+				...
+				<dox for='otherVar' type='boolean' default='false'>Blah</dox>
+				...
+			</class>
+
+	- all the above items can have the following tags (either inline or with src='')
+		<script [for='X']/>
+		<layout [for='X']/>
+		<template/>
+		<stylesheet/>
+		<messages/>
+		<testcases/>
+		
+- Classes:
+	- class is defined in simple hopeML  (like XML but permissive like html)
+		<class id="" supers="" requires="" etc>
+			<dox>
+				class docs
+			</dox>
+			
+			<script>
+				{...}		// instance vars/methods, just injected directly into JS
+			</script>
+			
+			<script for='class'>
+				{...}		// static vars/methods, just injected directly into JS
+			</script>
+			
+			<layout for=''>
+				html for children goes here, mixture of normal HTML and hope objects
+				automatically extracted on compilation
+				
+				Note: you can have more than one layout for different types of environments.
+			</layout>
+			
+			<template id="">
+				<!-- a subsidiary template -->
+			</template>
+			
+			<stylesheet>
+				/* basic stylesheet for standard/unobtrusive theme */
+			</stylesheet>
+			
+			<messages>
+				name : value
+			</messages>
+			
+			<testcases>
+				{...}		// test cases for validating class
+			</testcases>
+		</class>
+
+	- class level attributes:
+		- id				string:   'module::id'
+		- supers			string:   '[module::]id ...'
+		- requires			string:   '[module::]id ...'
+		- collection		string:							-- name of (top-level) collection for instances
+		- tagName			string:							?? auto?
+
+	? how to do prototype && prototype.extensions?
+
+Class compilation plan:
+	- class naming
+		- class base file is:   								.../ClassName.hope
+		- class xml are pickled into python and stored as:		.../_cache/ClassName.hope.pickle
+		- info for loading/compiling is stored (pickled) as:	.../_cache/ClassName.hope.info
+		- loaded files are compiled into:						.../_cache/ClassName.hope.js
+																.../_cache/ClassName.hope.css
+																.../_cache/ClassName.hope.tests
+		- docs are extracted and placed (as XML) in:			.../_dox/ClassName.dox
+																
+	- set up dir in web server so URLs w/o extension in a module dir go to python:
+		- client loads as "/module/Class"
+		
+	- when a ClassName.hope file is requested
+		- check stats of  (ClassName.hope) and (_cache/ClassName.hope.js)
+		- if (ClassName.hope) is newer
+			- html parser loads the ClassName.hope
+			- parser pickles/saves as _cache/ClassName.hope.pickle
+			- compiler outputs:
+					_cache/ClassName.hope.info
+					_cache/ClassName.hope.js
+					_cache/ClassName.hope.css
+		- serves hope.js (and hope.css) files
+		
+		? some way to link line numbers back to the xml file?
+			- inject comments into the JS source?
+			- try to preserve line numbers?
+	
+	- classes/files can be defined to preloaded in named groups
+		- use <class ...  loadgroup='<name>(:<priority>)' ...>
+		- we use dependencies to determine loading order  (from .infos)
+		- priority can be used to influence order
+		- "preload" is a special group which is loaded all at once at the start
+	
+	? somehow inject $super() context for methods which need it and don't require $super?
+		- work backwards from $super to function to function name
+		- load supers (incl mixins)
+		- find closest which has that function defined
+		- insert the apply code in there directly
+		? can we make this work with patterns?  delegated methods?
+	
+	- info file holds:
+		- all class attributes, including  supers/requires
+		- classes needed to instantiate children
+		- methods of classes/mixins (for $super?)
+
+- manifest
+	- created automatically for each:
+		- module
+		- site
+		- app
+	- use html rewriting to ask for   	.../manifest
+	- for stat purposes, we need to check list of files rather than stat of each file (?)
+	- have re-stat every 10 seconds
+
+
+
+- Site, Apps & Pages
+	- site:
+		- has preferences
+		- high level authentication operations
+		- has manifest of different apps
+		- can have site-level logic
+		- has no layout/visual representation
+		
+		
+	- app:
+		- has preferences
+		- can have app-level operations (eg:  'update status' in gear6)
+		- manifest of pages  (mixed into google manifest format?)
+			- the correct page is loaded automatically based on the URL loaded (?)
+		- app-level logic
+		- generally has one or more 'layouts' shared by one or more pages
+			- layout + controls  (accessed as app.controls.name)
+			- 
+			- "app.layoutStyle" picks appropriate one
+		- has click mask
+		- has notifier (?  child of layout?)
+		
+	
+	- page:
+		- has preferences
+		- generally loaded dynamically
+		- auto-loads all classes needed
+		- picks an app layout for its 'background'
+		- has one or more layouts of its own
+			- layout + controls  (accessed as page.controls.name)
+			- layouts can have their own scripts
+		- manages client/server operations  (delegate to app?)
+			- generally registered from models
+			- each page can only have one active operation
+				but different pages in the browser at once can have parallel operations
+		- pages can be drawn:
+			- full-screen (default)
+			- in a dialog/lightbox/tool palette
+			- loaded in a separate window/tab
+			? use mixins?  separate base classes?
+	
+	
+- Models, Controllers & Controls
+	- Models = data objects			(name?  dataSource ?)
+		- does NOT have preferences
+		- have attributes
+		- have methods for manipulating attributes/derived attributes
+		- have operations (load/save/update/etc)
+		- egs:   gear6 things, db tables, mashups
+		
+	- Controller = manager of model + controls to manipulate the model
+		- can have preferences
+		- have a 'value'  (generally: instance of model or list of models)
+		- have own attributes and methods
+		- have operations (?  mostly will delegate to model)
+		- generally have at least one 'layout' (used to layout/instantiate controls)
+		- have 'children' and/or 'controls'
+			- have influence of 'id' of children used for rendering
+			- children/controls are collected into the control
+			- children can be nested controllers (e.g. list controller)
+
+	- Controls
+		- (generally) have some visible representation on the screen
+		- can have preferences
+		- have a value
+		- manipulate the model directly
+		- have dynamic enabled/visible/value
+		- can also be controller of their own children
+
+		? what is *not* a control?  is a section a control?
+
+
+- Model:
+	- uses set() for setting/normalizing values
+		(can side-effect other properties as well)
+	- access properties directly
+	- has concept of attribute types/values/validation
+
+
+- Python parsing JS:
+	- need to at least be able to pull methods/properties out of main object
+	- private methods/props inline
+	- pull out debug stuff in production mode (at various levels)
+
+	Super nice to have:
+		- a few rewriters would be nice
+			- $super(arguments)		=>	SuperClass.prototype.<method>.apply(this, arguments)
+			- $super(...)			=>	SuperClass.prototype.<method>.call(this,arg1,arg2,)
+			- $debug.foo(...)		=>  if (this.debug.foo) {console.debug(...)}
+			- $warn.foo(...)
+			- $error.foo(...)
+			- $observe(...)			=>	???
+			
+		- defaults in function def, eg:
+			function (a:blah, b:blorg, c) {}	=>	function(a, b, c) {
+														if (a == null) a = blah;
+														if (b == null) b = blorg;
+		- auto assigners in function def, eg:
+			function (this.a, this.b) {}		=>	function(a, b, c) {
+														if (a != null) this.a = a;
+														if (b != null) this.b = b;
+		- can mix the above two:
+			function (this.a:blah) {}			=>	function(a) {
+														this.a = (a != null ? a : blah);
+
+		- some quick way of instantiating objects
+			this[x] ||= [];		=>	if (this[x] == null) this[x] = [];
+
+		- some auto setter/getter thing?
+		
+		- forEach syntax that doesn't require an inline function
+			$forEach(what, it[, index]) {
+				blah blah blah;					
+			}									
+
+			=>
+			
+			for (var index = 0, indexLast = what.length, it = what[0]; index < indexLast; it = what[index++]) {
+				blah blah blah;
+			}
+			
+		- some easy way of doing suspends/deferred callbacks
+
+			 
+- Misc
+	- build concept of dev/testing/staging/production into everything
+		- deploy mode in cookie (?)
+		? versioning/migration plan ala rails?

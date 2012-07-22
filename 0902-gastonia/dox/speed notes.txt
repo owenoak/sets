@@ -1,0 +1,16 @@
+speed notes
+	- apply is 2x slower than a normal function invocation
+	- delay() is VERY slow
+	- using even a native iterator function is 2x slower than doing an inline loop
+		- prototype's taking over of filter(), etc is a major slowdown on FF2+, Webkit, IE8
+	- try/catch seems to be pretty expensive
+	
+	
+startup hogs
+	- initializeDependencies
+	- includeScript
+	- registerThing
+	- namespace.insert
+	- superize
+	- extendUnique
+	- firstArgIs$super

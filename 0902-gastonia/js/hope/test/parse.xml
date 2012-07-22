@@ -1,0 +1,10 @@
+<view id='test' as='blorg'/>
+<view id='test' as='blorg'>
+	<Container>
+	blah
+		<Label value="ref::context.blahh" onmouseover='return true'>blah</Label>
+		<Label value="ref::context.blahh" onmouseover='return true'>blah</Label>
+		<Notifier value="blah">blah</Notifier>
+	blah
+	</Container>
+</view>

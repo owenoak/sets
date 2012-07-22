@@ -1,0 +1,16 @@
+<class id="Label" superclass='Drawable' tagName='Label'>
+	<attribute name="className" value='Label'/>
+	<attribute name='value'>
+		<script>
+			// update <blah> the innerHTML of the node 
+			function setValue(value) {
+				if (!$super(value)) return false;
+				if (this.$value) this.$value.innerHTML = this.value;
+			}
+		</script>
+	</attribute>
+	
+	<template id='main'>
+		<label @{id} @{className} @{style} @{events}>#{value}</label>
+	</template>
+</class>

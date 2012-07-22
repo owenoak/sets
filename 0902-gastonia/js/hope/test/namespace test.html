@@ -1,0 +1,60 @@
+<html xmlns="" xmlns:hope="">
+<!-- declaring the hope name space is essential here (but its contents can be empty)! -->
+<head>
+ <title>simple @namespace test</title>
+ <style>
+  p { background:red }
+  hope\:foo { background:lime; display:block; }
+ </style>
+</head>
+<body>
+
+ <p>This line should have a red background.</p>
+ <foo>This line should have a green background.</foo>
+ <p>This line should have a red background.</p>
+
+<script language='javascript'>
+var it = document.getElementsByTagNameNS("http://www.w3.org/1999/xhtml","p");
+for (var prop in it) {
+	document.write(prop + ":" + it[prop] + "<br>");
+}
+// NOT CLEAR HOW TO GET A HANDLE TO THE HOPE NODES -- XPATH?
+</script>
+</body>
+</html>
+
+
+<!-- FROM MS:
+
+<html xmlns:sdk="">
+
+<head>
+<style type="text/css">
+sdk\:cacher {
+    behavior: url(#default#userData);
+}
+</style>
+<script type="text/javascript">
+function fnSaveInput(){
+   cachetag.setAttribute("sPersist",txt1.value);
+   cachetag.save("cache");
+}
+function fnLoadInput(){
+   cachetag.load("cache");
+   cachetag.value=cachetag.getAttribute("sPersist");
+}
+</script>
+</head>
+
+<body>
+
+<sdk:cacher id="cachetag"></sdk:cacher>
+<input type="button" value="Load" onclick="fnLoadInput()">
+<input type="button" value="Save" onclick="fnSaveInput()">
+<input type="text" id="txt1" value="some value">
+
+</body>
+
+</html>
+
+-->

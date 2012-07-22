@@ -1,0 +1,281 @@
+<!DOCTYPE html PUBLIC "//W3C//DTD HTML 4.01//EN">
+<html>
+<head>
+	<title>ClassFactory Tester</title>
+        
+	<script src='/js/prototype.js'></script>
+	<script src='/js/hope/hope.js'></script>
+	
+	<style type='text/css'>
+		*								{	font-family:Verdana; font-size:12px;	}
+	</style>
+</head>
+<body>
+
+
+
+
+<script language='javascript'>
+
+
+hope.create({
+	id:"mixin",
+	superclass:"Mixin",
+	initialize : function() {
+		console.warn("Created "+this.id);
+	},
+	methods : {
+		callSub : function mixin_callSub($super) {
+			console.group("mixin.callSub");
+			$super();
+			console.groupEnd();
+		},
+		callSuper : function mixin_callSuper($super) {
+			console.group("mixin.callSuper");
+			$super();
+			console.groupEnd();
+		}
+	}
+});
+
+
+hope.create({
+	id:"mixin2",
+	superclass:"Mixin",
+	initialize : function() {
+		console.warn("Created "+this.id);
+
+		console.warn("=============");
+		console.warn("Starting Singleton super tests");
+	},
+	methods : {
+		callSub : function mixin2_callSub($super) {
+			console.group("mixin2.callSub");
+			$super();
+			console.groupEnd();
+		},
+		callSuper : function mixin2_callSuper($super) {
+			console.group("mixin2.callSuper");
+			$super();
+			console.groupEnd();
+		}
+	}
+});
+
+
+
+hope.create({
+	id : "Single",
+	superclass:"Singleton",
+//	mixins:"mixin",
+
+	initialize : function() {
+		console.group("Created "+this.id);
+		//print(Single);
+		if (Single.callSub) {
+			console.group("Single.callSub()");
+			Single.callSub();
+			console.groupEnd();
+		}
+		console.group("Single.callSuper()");
+		Single.callSuper();
+		console.groupEnd();
+		console.groupEnd();	
+	},
+	callSuper : function Single_callSuper($super) {
+		console.group("Single.callSuper");
+		$super();
+		console.groupEnd();
+	}
+});
+
+hope.create({
+	id : "SubSingle",
+	superclass:"Single",
+	mixins:"mixin",
+	initialize : function() {
+		console.group("Created "+this.id);
+		//print(SubSingle);
+		if (SubSingle.callSub) {
+			console.group("SubSingle.callSub()");
+			SubSingle.callSub();
+			console.groupEnd();
+		}
+		console.group("SubSingle.callSuper()");
+		SubSingle.callSuper();
+		console.groupEnd();
+		console.groupEnd();	
+	},
+	callSub : function SubSingle_callSub($super) {
+		console.group("SubSingle.callSub");
+		$super();
+		console.groupEnd();
+	},
+	callSuper : function SubSingle_callSuper($super) {
+		console.group("SubSingle.callSuper");
+		$super();
+		console.groupEnd();
+	}
+});
+
+
+
+
+
+
+hope.create({
+	id : "SuperSuper",
+
+	initialize : function() {
+		console.warn("=============");
+		console.warn("Starting Class super tests");
+		console.error("Created "+this.id);
+	},
+	
+	methods : {
+		callSub : function SuperSuper_callSub() {
+			console.debug("SuperSuper.callSub");
+		},
+		callSuper : function SuperSuper_callSuper() {
+			console.debug("SuperSuper.callSuper");
+		},
+		toString : function(){return "(SuperSuper.prototype)"}
+	},
+	
+	classMethods : {
+		classCallSuper : function SuperSuper_classCallSuper() {
+			console.debug("SuperSuper class callSuper");
+		}
+	}
+});
+
+
+hope.create({
+	id : "Super",
+	superclass : "SuperSuper",
+	initialize : function() {
+		console.group("Created "+this.id);
+		window.zuper = new Super();
+		//print(zuper);
+		console.group("zuper.callSub()");
+		zuper.callSub();
+		console.groupEnd();
+		console.group("zuper.callSuper()");
+		zuper.callSuper();
+		console.groupEnd();
+		console.group("Super.classCallSuper()");
+		Super.classCallSuper();
+		console.groupEnd();
+		console.groupEnd();
+		console.warn("=============");
+	},
+	methods : {
+		toString : function(){return "(Super.prototype)"},
+		
+		callSub : function Super_callSub($super) {
+			console.group("Super.callSub");
+			$super();
+			console.groupEnd();
+		},
+		callSuper : function Super_callSuper($super) {
+			console.group("Super.callSuper");
+			$super();
+			console.groupEnd();
+		}
+	},
+
+	classMethods : {
+		classCallSuper : function Super_classCallSuper($super) {
+			console.group("Super class callSuper");
+			$super();
+			console.groupEnd();
+		}
+	}
+});
+
+
+
+
+hope.create({
+	id : "Sub",
+	superclass:"Super",
+	mixins : "mixin mixin2",
+	initialize : function() {
+		console.group("Created "+this.id);
+		window.zub = new Sub();
+		//print(zub);
+		console.group("zub.callSub()");
+		zub.callSub();
+		console.groupEnd();
+		console.group("zub.callSuper()");
+		zub.callSuper();
+		console.groupEnd();
+		console.group("Sub.classCallSuper()");
+		Sub.classCallSuper();
+		console.groupEnd();
+		console.groupEnd();
+		console.warn("=============");
+
+		console.group("extending zub instance");
+		zub.extend( 
+			{
+				callSub : function($super) {
+					console.group("zub instance.callSub");
+					$super();
+					console.groupEnd();
+				}
+			}
+		);
+		console.group("zub.callSub()");
+		zub.callSub();
+		console.groupEnd();
+		console.group("zub.callSuper()");
+		zub.callSuper();
+		console.groupEnd();
+
+
+		console.group("extending Sub class");
+		Sub.extend( 
+			{
+				classCallSuper : function SubInstance_classCallSuper($super) {
+					console.group("Sub applied classCallSuper");
+					$super();
+					console.groupEnd();
+				}
+			}
+		);
+		console.group("Sub.classCallSuper()");
+		Sub.classCallSuper();
+		console.groupEnd();
+		console.groupEnd();
+
+
+		console.groupEnd();
+		console.warn("DONE");
+	},
+	methods : {
+		toString : function(){return "(Sub.prototype)"},
+		callSub : function Sub_callSub($super) {
+			console.group("Sub.callSub");
+			$super();
+			console.groupEnd();
+		}
+	},
+
+	classMethods : {
+		classCallSuper : function Sub_classCallSuper($super) {
+			console.group("Sub class callSuper");
+			$super();
+			console.groupEnd();
+		}
+	}
+});
+
+
+
+
+
+</script>
+
+</body>
+</html>

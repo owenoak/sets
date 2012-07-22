@@ -1,0 +1,67 @@
+{
+  "betaManifestVersion": 1,
+  "version": "1",
+  "namespace" : "hope",
+  "entries": [
+
+      { "url":"../prototype.js",													"preload":0 },
+      { "url":"core/prototype.extensions.js",										"preload":1 },
+      { "url":"core/console.js",													"preload":2 },
+      { "url":"core/Cookie.js",						"id":"Cookie",					"preload":3 },
+      { "url":"core/Debuggable.js",					"id":"Debuggable",				"preload":4 },
+      { "url":"core/hope.js",														"preload":5 },
+      { "url":"core/ClassFactory.js",				"id":"ClassFactory",			"preload":6 },
+      { "url":"core/FileIncluder.js",				"id":"FileIncluder",			"preload":7 },
+      { "url":"core/Script.js",						"id":"Script",					"preload":8 },
+      { "url":"core/Stylesheet.js",					"id":"Stylesheet",				"preload":9 },
+      { "url":"core/Expander.js",					"id":"Expander",				"preload":10 },
+      { "url":"core/Parser.js",						"id":"Parser",					"preload":11 },
+      { "url":"core/XMLParser.js",					"id":"XMLParser",				"preload":12 },
+
+      { "url":"core/hope.cssv",						"id":"hope.cssv" },
+      { "url":"core/ClassParser.js",				"id":"ClassParser" },
+
+      { "url":"animation/AnimationStyle.js",		"id":"AnimationStyle" },
+      { "url":"animation/AnimationStyleExtras.js",	"id":"AnimationStyleExtras" },
+      { "url":"animation/CSSAnimation.js",			"id":"CSSAnimation" },
+
+      { "url":"css/BoxModel.js",					"id":"BoxModel" },
+      { "url":"css/Color.js",						"id":"Color" },
+      { "url":"css/CSSNamedColors.js",				"id":"CSSNamedColors" },
+      
+      { "url":"docutron/Docutron.js",				"id":"Docutron" },
+      { "url":"docutron/Docutron.css",				"id":"Docutron.css" },
+      { "url":"docutron/Docutron.expanders",		"id":"Docutron.expanders" },
+
+      { "url":"drawable/Container.js",				"id":"Container",			"tagName":"Container"	},
+      { "url":"drawable/Drawable.js",				"id":"Drawable",			"tagName":"Drawable" 	},
+      { "url":"drawable/HContainer.js",				"id":"HContainer",			"tagName":"HContainer", "preload":14	},
+      { "url":"drawable/HTable.js",					"id":"HTable",				"tagName":"HTable", "preload":15	},
+      { "url":"drawable/Label.js",					"id":"Label",				"tagName":"Label" , "preload":13	},
+      { "url":"drawable/Notifier.js",				"id":"Notifier",			"tagName":"Notifier" 	},
+      { "url":"drawable/Spacer.js",					"id":"Spacer",				"tagName":"Spacer"	 	},
+      { "url":"drawable/simple.expanders",			"id":"simple.expanders" },
+      { "url":"drawable/simple.cssv",				"id":"simple.cssv" },
+
+      { "url":"layout/Draggable.js",				"id":"Draggable" },
+      { "url":"layout/EventHandler.js",				"id":"EventHandler" },
+      { "url":"layout/Filler.js",					"id":"Filler" },
+      { "url":"layout/GetPart.js",					"id":"GetPart" },
+      { "url":"layout/Layout.js",					"id":"Layout" },
+      { "url":"layout/Resizable.js",				"id":"Resizable" },
+      { "url":"layout/Splitter.js",					"id":"Splitter" },
+      { "url":"layout/Spreader.js",					"id":"Spreader" },
+
+      { "url":"util/CustomTags.js",					"id":"CustomTags" },
+      { "url":"util/DataStore.js",					"id":"DataStore" },
+
+
+      { "url":"unused/Collapser.js",				"id":"Collapser" },
+      { "url":"unused/Conditional.js",				"id":"Conditional" },
+      { "url":"unused/ExpanderWidget.js",			"id":"ExpanderWidget" },
+      { "url":"unused/Preferential.js",				"id":"Preferential" },
+
+      { "url": "hope.manifest.json",				"type":"manifest"}
+
+	]
+}

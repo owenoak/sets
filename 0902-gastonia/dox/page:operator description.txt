@@ -1,0 +1,170 @@
+
+	* Operator
+		- encapsulates server calls
+		
+		- single operator instantiated by page (available as 'page.operator')
+			(but you should call page methods rather than operator methods)
+	
+		- operationIds are generally "<context>.<operationName>", eg
+				"Gear6Module.update"
+			(remember that at some point we want to mix different displays in one screen
+				for the dashboard -- for this we need operations to be unique across the app)
+		
+
+	* Page
+		- manages server connection(s) and hooks up page-specific data structures, etc
+
+		- subclassed as Gear6Page
+			- has dirty state to show 'Unsaved changes' button  
+				(see bottom of operations section, below)
+			
+			- will set up 'getStatus' operation automatically eventually
+	
+		- Page instantiates a Notifier, which displays page-level messages, api:
+				page.showMessage(message [, autoHide [, callback]])
+				page.showWarning(message [, autoHide [, callback]])
+				page.showError(message [, autoHide [, callback]])
+
+				page.flashMessage(message [, callback])		-- shows message for 2 secs, then hides
+
+				page.clearMessage()
+
+		- Note that operation message display is handled automatically, below
+	
+	
+	* Page Operations
+		- classes/widgets register operations on the operator via the page
+				page.registerOperations( { opId:params, opId:params, ... } )
+		
+		- register periodic 'update' operations by id:
+				page.registerUpdateOperation("opId");
+			
+			(see 
+
+		- operation params:
+				url 			-- (required) url to call
+								--  will automatically get timestamp appended
+				asynchronous 	-- (optional, default is true)
+				method			-- (optional, default is "POST")
+				evalJS			-- (optional, default is "force") 
+									"force" 	== always  eval results as JS
+									false 		==  NEVER  eval results as JS
+
+				message			-- (optional) message to show while operation is in progress
+				successMessage	-- (optional) message to show when operation completes successfully
+				failureMessage	-- (optional) message to show when operation 'fails' from server perspective
+
+				onSuccess		-- (optional) anonymous success callback
+				onFailure		-- (optional) anonymous failure callback
+				onException		-- (optional) anonymous exception callback
+								-- both called as:  on<State>(transaction, request)
+								-- for failure/exception, exception is stored as transaction.exception
+								--	all return a string to display as a message to the user
+										this overrides successsMessage or failureMessage
+										return null = no message
+		
+		- to begin an operation
+				page.beginOperation(operationId, callParams)
+
+			- callParams will be merged with registered operation parameters
+				and stored as transaction.params
+
+			- operator will do the operation, then call the onSuccess callback 
+				as set in registerOperations()
+				
+			- the page will also show/hide messages as specified in the operation params
+			
+		- if something went wrong from the server's perspective (e.g. bad data) 
+			your response JSON should do:
+				throw new OperationFailure({message:"flag_string_for_onFailureCallback"})
+
+			- you can put any data, etc that you want in the message:object 
+			- this will call the operation.onFailure() handler
+			
+			- access this object in your onFailure handler as transaction.exception, eg:
+				(in operation params)
+					onFailure : function(transaction, request) {
+						if (transaction.exception.message == "blarg") ...
+					}
+						
+		- if a JS exception is thrown OTHER than an OperationFailure, automatically calls
+					operation.onException()
+					
+			- default behavior is to show a message stored in
+			
+				page.operationExceptionMessage
+				
+
+		- if transport fails, automatically calls 
+					page.onTransportFailure()
+				which currently shows a message:
+					page.transportFailureMessage
+
+		- operations are queued so only one can occur at a time.  
+			You don't have to do anything to make the next operation in the queue fire.
+			
+		- note that you need to manage the dirty state separately, 
+			it is no longer handled automatically.  
+			To set page dirty state, in your JSON response, put the following:
+			
+				page.setDirtyState(<true|false>);
+		
+
+
+Integration instructions
+	* updated:
+		- style/style.css
+		- style/MemcacheService.css
+			- note that your changes to this taking "-" out from "-moz-border-radius" etc
+				would break round corners
+		- js/lib/prototype.extensions.js
+		- js/lib/ProtoWidget.js
+		
+	* new:
+		- js/lib/DataWidget.js
+		- js/lib/MasterWidget.js
+		- js/lib/Notifier.js
+		- js/lib/Operator.js
+		- js/lib/Page.js
+		- js/page/memcache-media.js
+		- js/page/Gear6Module.js
+		- js/page/Gear6Page.js
+		- style/memcache-media.css	
+	
+	* for scripts to load, etc see
+		js/page/test/memcache-media.html
+		
+	* api for doing module.update has changed, see:
+		js/page/test/data/memcache-media/update.js
+		
+		- this is the same data you sent me last week, munged into the new format
+			- most of the changes (I may have missed a few) are:
+
+			- to get a module, use
+					var module = Gear6Module.byId("id", true)
+				- pass true to byId() to autoCreate
+					(this lets us check to see if something is there without auto-creating it)
+
+			- "module.setProperties()" is now "module.setData()", eg
+					module.setData({...})
+
+			- do not pass id as {...} parameter to module.setData() or setBay()
+
+			- create/set properties of bays as id "bay1", like so:
+					 module.setBay('bay2', {
+					   status: 'empty',
+					 });
+
+			- do not pass id as {...} parameter to module.setBay()
+
+			- don't access the module.bays property directly, if you need access to a bay
+				use module.getBay("bay1")
+			
+			- you were not quoting parameters "devicePath" and "deviceId"
+			
+			- 'bay.size' and 'bay.totalBytes' seem to be redundant?
+
+		- setDirty is another call, see bottom of test file
+
+		- you no longer need to do finishOperation()
+		

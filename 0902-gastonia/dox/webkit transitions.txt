@@ -1,0 +1,60 @@
+webkit transition properties:
+
+timing functions:
+	- webkit supported
+		ease			cubic-bezier(0.25, 0.1, 0.25, 1.0)
+		linear			cubic-bezier(0.0, 0.0, 1.0, 1.0)
+		ease-in			cubic-bezier(0.42, 0, 1.0, 1.0)
+		ease-out		cubic-bezier(0, 0, 0.58, 1.0)
+		ease-in-out		cubic-bezier(0.42, 0, 0.58, 1.0)
+		cubic-bezier 	P1 and P2 of the curve as (x1, y1, x2, y2) in the range [0, 1]
+	? link these to the penner equations?  
+	? use:	http://www.netzgesta.de/dev/cubic-bezier-timing-function.html
+	? bounce, etc?
+
+duration
+	<#>s			seconds, 0 == immediate
+	
+animatable properties:
+	support
+		background-color		color
+		color					color
+		left					length, percentage
+		top						length, percentage
+		right					length, percentage
+		bottom					length, percentage
+		font-size				length, percentage
+		height					length, percentage
+		width					length, percentage
+		opacity					number
+
+	interesting
+		zoom					number
+		max-height				length, percentage
+		max-width				length, percentage
+		min-height				length, percentage
+		min-width				length, percentage
+		
+	probably not
+		background-image		only gradients
+		background-position		percentage, length
+		border-*-color			color
+		border-*-width			length
+		border-color			color
+		border-spacing			length
+		border-width			length
+		crop					rectangle
+		font-weight				number
+		letter-spacing			length
+		line-height				number, length, percentage
+		margin-*				length
+		outline-color			color
+		outline-offset			integer
+		outline-width			length
+		padding-*				length
+		text-indent				length, percentage
+		text-shadow				shadow
+		vertical-align			keywords, length, percentage
+		visibility				visibility
+		word-spacing			length, percentage
+		z-index					integer

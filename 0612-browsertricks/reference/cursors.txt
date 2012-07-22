@@ -1,0 +1,32 @@
+auto
+crosshair
+default
+pointer
+move
+e-resize
+ne-resize
+nw-resize
+n-resize
+se-resize
+sw-resize
+s-resize
+w-resize
+text
+wait
+help
+progress
+inherit
+copy	-> -moz-copy
+alias	-> -moz-alias
+cell	-> -moz-cell
+context-menu	-> -moz-context-menu (no win?)
+col-resize
+row-resize
+not-allowed
+no-drop (same as not-allowed)
+vertical-text
+grab	-> -moz-grab
+grabbing	-> -moz-grabbing
+zoom-in	-> -moz-zoom-in
+zoom-out	-> -moz-zoom-out
+copy

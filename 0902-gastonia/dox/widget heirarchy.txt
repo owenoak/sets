@@ -1,0 +1,248 @@
+* menu/menuItem   (diff types of menuitems?)
+* contextMenu (or just invocation mode for a menu?)
+* textboxlist -- eg: apple mail to thinger
+* code hilighter
+* rich text editor
+* tooltip
+* accordion
+* section
+* lightbox
+* palette
+* vertical text (via SVG/VML?)
+* poll
+* rating (see and interact)
+* tag cloud
+* carosel
+* gallery thingers
+* slideshow
+* in-place editor
+
+
+Widget heirarchy
+
+	::Drawable
+		.drawn
+		.container	(.$container ?)
+		
+		$element  ($elements?  $element can be nodelist type array?)
+		@observe	- space-delimited list of commands/broadcasters to observe (?)
+		@control	- control we're proxying for (click on me focuses control)
+		
+		@width				(css?  faster to set directly)
+		@height				(css?  faster to set directly)
+		@min-width			(css?  faster to set directly)
+		@max-width			(css?  faster to set directly)
+		@min-height			(css?  faster to set directly)
+		@max-height			(css?  faster to set directly)
+		@margin				(css?  faster to set directly)
+		@padding			(css?  faster to set directly)
+				
+		@maximize	(*no|yes|h[orizontal]|v[ertical]) -- maximize/pin to available size of parents
+			 										? just use width/height for this?
+			 										
+		@crop		(no|start|end|center?)  ?here?
+		
+		@hint			- text to show on hover (or as prompt in text field, etc)  hoverText?
+
+		@visible
+		.setVisible()
+		.show()
+		.hide()
+		@showAnimation	(*show)
+		@hideAnimation	(*hide)
+		
+		@enabled		(yes|no?  true|false?)  -- setting on parent affects all children
+		.setEnabled()
+		.enable()
+		.disable()
+		
+		@wantsFocus		(*no|yes)		-- moz:  userFocus:normal|ignore
+		@tabindex		(#)
+		.focused
+		.setFocused()
+		.focus()		- sets '.focused' on this, ".focusedContainer" on parent?, use "this.focused" doesn't bleed
+		.blur()
+
+		@popupMenu		(id of left-click popup thing)
+		@popupAt		(n|s|ne|...?)  name???
+		.setPopup(id|element)
+		.showPopup([where[, id|element]])
+		.popup([where[, target]])		-- pop this thing up where in relation to target
+		@popupTarget
+		
+		@contextMenu	(id of right-click popup)
+		.setContextMenu(id|element)
+		.showContextMenu()
+		
+		@resizable	(no|yes|[n s e w ne nw ...])
+		.setResizable(str)
+		.resizeTo(w,h)		- pass "+x" or "-x" for relative
+		.maximize()			- maximize to size of parent and/or max width/height
+		.minimize()			- contract to minimal size and/or min-width/height
+		
+		@movable	(no|yes)
+		.moveTo(l,t)		- pass "+l" or "-l" for relative
+		.setDimensions(l,t,w,h)		-- not compatible with prototype syntax
+
+		
+		::Spacer
+		::Label
+		::Description 	(??)
+		::Notifier		- transient notifier
+		::Splitter		(??)
+		::Separator		(e.g. ListSeparator)
+		::ProgressDisplay
+		
+		::Container (Mixin)
+			@children
+			@direction = "*h[orizontal]|v[ertical]"
+			@halign	= "*start|center|end|stretch"
+			@valign = "*start|center|end|stretch"
+
+			@scroll		-- (*never|always|auto|h[orizontal]|v[ertical])
+			@scrollType	-- (*bar|arrows)		-- bar = normal scroll bars, arrows = slider arrows
+
+		(Containers)
+			::Container		(has children, doesn't manage their layout)
+			::HContainer	(?name?)
+			::VContainer	(?name?)
+			
+			::GroupBox	(::Grouper?  @label +/or @caption)
+			::RadioGroup
+
+			::Panel			- window without decorations
+			::Window (?)	- window with close|maximize|etc
+			::Dialog		- popup dialog w/buttons
+			
+			::Grid
+			
+			::StackContainer	(Stack? StackedContainer?  -- like deck that only top shows)
+				.selectedIndex
+				
+				::TabPanel		(::TabBar ::TabButton -- no ::TabPanel)
+		
+			::Toolbar
+			
+			::Form
+			
+
+
+		::Control
+			@label
+			@value
+			@preference -- auto-storage for value
+			@reference  -- where to get the value from (?ref? datapath?)
+			@action	-- what command to invoke when pressed
+			@accesskey
+
+			.update(value)
+			@updateAnimation	(*replace)
+		
+
+			::Button
+			::ToolbarButton
+			::Checkbox
+				- @value, @trueValue, @falseValue
+				- 3-state checkbox?  indeterminate checkbox?
+			::RadioButton
+			::MenuButton
+			
+			::Textfield			- input and textarea (multiline=true)
+			::ComboBox			(?name?  textfield with "open" menu?)
+			::InlineEditor
+			::HTMLEditor
+			::DatePicker
+			::TimePicker
+			::ColorPicker
+			::Slider
+			::ProgressGraph
+			::ProgressMeter
+
+			::ListControl		(columns?)
+				::Menu			(children: ListItem, Menu)
+				::Listbox		(children: ListItem) ?name?
+				::TreeControl
+
+			::ListItem
+
+::Controller
+	::Application (App?)
+	::Page
+
+
+::Delegators
+	::Command
+	::Preference
+	::
+
+Events
+	- standard mouse events
+	- mouseEnter, mouseLeave
+	- hover
+	
+
+
+TO CONSIDER:
+	- anchors and springs for layout?
+	- keys/commands/etc
+	- onkeypress handling for fields for auto-complete, etc
+		- xul sends "input" event
+	- "command dispatcher" for keeping track of who has the focus
+	- page registry of operations/commands for hookup in IDE
+	- command dispatching via controllers:   https://developer.mozilla.org/en/XUL_Tutorial/Commands
+		+ commandUpdaters (same page)
+	- list hooked directly up to array (of strings, of object, dynamic from server)
+
+* distinguish between userSet things (controls, attributes) 
+	and expanded/calculated/auto-added things (misc widgets add per parameters, etc)
+		? user set properties are all attributes, always have attrs on expanded element
+			(?what about things like @style which we'll need to use for functionality?)
+	* a "gear6 appliance list" is a single userSet "list" which creates instances according to data
+	* stats page is a series of userSet "chart" objects
+	* IDE will allow user to add userSet controls, userSet attributes
+	? keep shadow DOM of widgets for export?  Mark higher level things in the DOM?
+		- if we keep higher level things as their own tags, may be easier
+		- expander marks things as expands by injecting attribute?
+			<toolbar userset="true">
+				<leftArrowScroller/><toolbarbutton userset="true"/><rightArrowScroller/>
+			</toolbar/>
+	? maybe shadow DOM is just set of "containers" and "objects" which have "children" and "attributes"?
+		- when user adds a control, added to containers/objects
+		- when user sets a property, add to "attributes"
+	? shadow DOM is XML representaton of user set elements and user set attributes?
+		- in dev mode, have both XML and JS rep on client at same time 
+		- in prod mod, have only JS rep at same time
+		- if kick into edit mode, pull in XML dynamically and edit that, regenerate JS
+	! setAttribute() sets user attribute (?), this.blah only sets internal property
+
+	- moz: distinguishes between "content tree" and "layout tree"
+		- content tree is nodes as they are in source
+		- layout tree is nodes as they are expected to be displayed
+	! our JS objects is the user model (mark generated elements with userSet=false)
+		just remember attributes set separately
+
+* some way to compile a page (like creating expander) for efficiency
+* how to efficiently interpolate a string?  maybe only #{}, not <#> so we can do dynamically?
+		
+
+* page has "includes" attribute
+* in IDE, use "selectorGadget" technique to say "apply to this", "apply to things like this: a,b,c"
+	- prefer widget classing (how to tell?)
+* can we allow case insensitivity?  
+	spec:  "XHTML documents must use lower case for all HTML element and attribute names. 
+			This difference is necessary because XML is case-sensitive."
+	? map in expander?  CSS and tag names must always be lower case.  poop.
+	? REQUIRE CamelCase for classes and forAttributes so we're distinct from XHTML?
+* drawables declare attributes in camelCase for mapping from case insensitive to 
+
+
+* need some sort of list/query abstraction, abilit to map that to a list control
+	- eg: 	some menus it's fine to have explicit set of menuItems
+			some menus you just want to hook up to a list
+	? have ListAdaptors?
+		- mozilla's tree interface is similar to this:
+				https://developer.mozilla.org/en/XUL_Tutorial/Custom_Tree_Views
+			- create a "TreeView" and implement
+				@rowCount
+				.getCellText(row,col)		- row=#, col is <treecolumn> element
+				.setTree(tree)

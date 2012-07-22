@@ -1,0 +1,70 @@
+/*
+	CSS for simple drawables
+*/
+@variables {
+	inlineBlock : 	display:-moz-inline-box; display:inline-block; #zoom: 1;  #display:inline; 
+	borderBox	: 	-moz-box-sizing:border-box; -webkit-box-sizing:border-box; -ms-box-sizing:border-box;
+}
+
+
+/* Class hope::Drawable */
+Drawable {
+	var(inlineBlock)
+}
+
+
+/* Class hope::Container */
+Container {
+	border:1px dotted #ccc;
+}
+
+HContainer {
+	border:1px dotted #ccc;
+	position:absolute;
+}
+HContainer > * {
+	position:absolute;
+}
+
+
+/* Class hope::HTable */
+.HTable {
+	border-collapse:collapse;
+}
+
+.HTable > TBODY > TR > TD > * {
+	var(borderBox)
+}
+
+
+/* Class hope::Label */
+
+.Label {
+	var(inlineBlock)
+}
+
+
+
+
+
+
+/* roundness */
+*[round=small] {
+	-moz-border-radius:2px;
+	-webkit-border-radius:2px;
+}
+
+*[round=medium] {
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+}
+
+*[round=large] {
+	-moz-border-radius:8px;
+	-webkit-border-radius:8px;
+}
+
+*[round=huge] {
+	-moz-border-radius:15px;
+	-webkit-border-radius:15px;
+}

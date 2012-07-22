@@ -1,0 +1,100 @@
+* Drawable Class
+	- draw/redraw cycle (takes parent or works with parentSelector)
+		- draw (takes 'parent')
+			- prepareToDraw
+			- drawElements
+			- afterDraw
+		- redraw
+			- prepareToRedraw (copies prepareToDraw)
+			- redrawElements
+			- afterRedraw (copies afterDraw)
+		- scheduleRedraw
+		-- note: "draw in place" is not a safe concept with deferred loading
+		-- ? skip redraw cycle & just check _drawn when drawing again?
+	- autodraw
+	- getDrawParent()
+	- check for $element to see if we've been drawn
+	- no children concept
+	? enable/disable?
+	
+	
+* HTMLWidget Class
+	- getDrawParent() uses "parentSelector" or parent passed in to draw
+	- expander-based
+		- expander "properties" are ids of expanders for Expander.byId()
+		- "OuterTemplate" is main template?  "OuterExpander"?
+		- default redraw behavior is to re-expand outer template
+	- "$element" is main element
+		- convention that all element properties start with "$"
+		- use GetPart pattern for maching sub-parts (rename to PartSelector?)
+	- use EventHandler to hook up events on draw
+		- how to know if we need to re-hook up on redraw?
+	-- select(selector, firstonly)	-- or is this in PartSelector?
+
+* CompositeWidget Pattern	(ParentWidget ?)
+	- takes "childName" and "childrenName" properties
+	- installs functions to deal with getting/adding/removing/setting properties of children
+	- installs stubs to deal with drawing children in draw cycle
+		- at end of draw() cycle
+			- prepareToDrawChildren
+			- drawChildren
+			- afterDrawChildren
+		- at end of redraw() cycle
+			 - prepareToRedrawChildren
+			 - redrawChildren
+			 - afterRedrawChildren
+	? Naming
+		? "ParentWidget" to manage child widgets
+		? "CompositeWidget" to manage manually-drawn children
+
+* ListWidget Class (Pattern?)
+	- manages and draws a set of children objects
+	- children can be drawn as sub-widgets or as expanded reps of data?
+		- separate classes for these cases?  names?
+		- separate class (mixin?) for draw some vs. draw all
+	
+* GridWidget Class  (eg Calendar)
+	- or just listWidget with columns?
+
+* DataBoundWidget Mixin (name?)
+	- use DataWidget concepts from g6lib
+		- uses "render" object for showing diffs
+		- setData
+		- "majorChange"	("fullRedraw" ?)
+		- updateAndHilight()
+		- updateDiffs is a t/f function (use hope.True and hope.False)
+		- hilightDiffs is a t/f function
+	- instead of looking in HTML, have update params object in widget?
+	- if something has update params, don't put in template
+	
+* DataBoundListWidget Mixin
+	- manages setting/drawing children
+
+* AutoUpdater -> ConditionalExecutor
+
+
+* have strings resources bundle as separate file?
+	- good for ie8n, nice to pull out of file
+	- format?  Java resource bundle thinger?
+			# MyResource.properties
+			# <key>=<value>
+			TEXT_NOT_FOUND=The file could not be found.
+			TEXT_HELLO=Hello, world!
+			TEXT_WARNING=
+			  There are {0} warnings in the file {1}.	
+		- use #{format} for subs
+		- or just use JS format?  really nice not to have to escape quotes...
+	- ability to embed in a template file like expanders
+	- locale encoded in name (and xml attrs)
+	- how to associate with a class?  or is there a global partitioned name space?
+		- thing.messages[name]
+	- inherit from base message set (which has yes/no/etc ?) -- cool!
+	- messages (incl. localization) should load before operation inits
+	
+* Data and DataList classes (mixins?)
+	- "snapshot" ?
+* Then XView widgets bind to these
+	e.g. G6Module (Data)
+		 G6ModuleBayList (DataList)
+		 G6ModuleView
+* nice, eg. for menus, because static menus and dynamic menus are the same, just diff data widgets

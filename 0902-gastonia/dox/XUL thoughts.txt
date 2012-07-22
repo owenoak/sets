@@ -1,0 +1,484 @@
+XUL thoughts
+	? base API on XUL?
+		+ already established API out there
+		+ relatively lots of XUL docs
+		+ XUL cross platform would be cool
+		- I'm sure there's tortuous things in there I wouldn't want to replicate
+
+	? use XUL manifest/etc formats?	
+	? hope:// URLs?
+
+
+Research more:
+	- @pack/@align:  https://developer.mozilla.org/en/XUL_Tutorial/Element_Positioning
+	- @persist
+		- sets which attributes of an element will persist across page loads
+	- <query>
+	- distinction between "hidden" and "collapsed"
+		https://developer.mozilla.org/en/XUL_Tutorial/Box_Objects
+	- <template><rule/>  stuff
+		- https://developer.mozilla.org/en/XUL_Tutorial/Templates
+		- on box/container, specify   datasource="..." and ref="..."
+		- on element in template, use "rdf:" in attribute to refer to datasource field
+
+
+Patterns we definitely want to use
+	- @observe="id" -- hook element up to command/broadcaster by id
+	- @control="id" -- hook up label/etc to control by id
+	- @preference="id" -- hook up value to a preference by id
+	- @accesskey
+	- @tabindex
+	- <hbox>/<vbox> (name?) for laying out children
+		- some way of setting padding outside + padding for children
+		- calc default size of children
+		- in XUL, boxes need flex to allow children to size
+		- @align = how grows in other direction, default is stretch?
+			(start|center|end|baseline|stretch)
+	- @flex model for sizing
+	- @min/max/width/height
+	- @maximize to maximize to size of parent (name?)
+	- <grid>/<columns>/<rows> rather than table for layout of grids
+		- manage space between and borders intelligently
+		- color rows/etc
+		? add rowspan/colspan?
+	- @crop
+	- @popup -- associates a popup with clicking on an element
+	- @context -- associates popup with right-clicking an element
+
+
+Nice XUL concepts (see:  https://developer.mozilla.org/en/XUL_Reference)
+	- general attributes which apply to many:
+		- observes="<id>"	-- sets up observation to command or broadcaster
+		- flex=# -- how remaining space is distributed among children
+				 -- higher # = more space proprotionally to total flex
+
+
+	- arrowscrollbox
+		- a box w/scroll arrows on edges for scrolling contents via hover (large popup menu)
+		- 	<arrowscrollbox orient="vertical" flex="1">
+			  <button label="Red"/>
+			  <button label="Blue"/>
+			</arrowscrollbox>
+		
+	- box
+		- child container (a.k.a. hbox, vbox, bbox)
+		- @orient="horizontal", lays out in LtoR.  ="vertical"=TtoB.
+		- @pack = (start|center|end) -- non-orient-align for children
+		- this centers children in both directions:
+			<hbox pack="center" align="center" flex="1">
+			  <button label="Look at Me!"/>
+			  <button label="Push Me!"/>
+			</hbox>
+
+		
+	? binding/bindings
+		- binds value to template attribute?
+
+	- broadcaster/broadcasterset
+		- broadcast ALL attributes to observing elements 
+		- all observers will share properties of broadcaster and will change automatically
+		- sets attributes & sends "onbroadcast" event to observers when change is made
+		- "In fact, any element can act as broadcaster, as long as you observe it using the observes attribute"
+		- use <observes> to pick up only some attributes of a broadcaster
+		- <broadcaster id="offline_command" label="Offline" accesskey="f"/>
+		- see: https://developer.mozilla.org/en/XUL/broadcaster
+
+	- browser
+		- like an iframe, but has histroy, referrers, etc
+
+	- button
+		- normal button, interesting attributes:
+			- @checked/@autocheck/@checkState
+			- @crop = (start|end|center|none) -- ellipsis if text is too long
+			- @dlgtype = (accept|cancel|help|disclosure|extra1|extra2) -- used as dialog button
+			- @icon - "set the usage for common buttons, displayed with icon"
+				= accept|cancel|help|open|save|find|clear|yes|no|
+				  apply|close|print|add|remove|
+				  refresh|go-forward|go-back|properties|
+				  select-font|select-color|network
+			- @open = true if menu for button is open, set to open/close
+			- @orient = (horizontal-vertical) - layout of child elements
+			- @tabindex
+			- @type = (checkbox|menu|menu-button|radio|repeat)
+			
+	- caption
+		- header for a groupbox
+		- can contain either a <label> or child elements
+		- <groupbox flex="1">
+			  <caption>
+					<checkbox label="A checked groupbox"/>
+			  </caption>
+		  </groupbox>
+		  
+	- colorpicker
+		- attributes:  
+			- @color - currently selected color
+			- @preference - connects element ot a preference object
+			- @type - if == "button", displayed as a popup button, otherwise inlined
+			- open - t/f if colorpicker is currently open
+
+	- command/commandset
+		- encapsulates an operation that can come from multiple sources (eg: "paste")
+		- disable/change label to broadcast that change to all observers
+		- same as broadcaster, but command = action, while broadcaster = state
+		- <command id="cmd_openhelp" oncommand="alert('Help');"/>
+		- attrs:	disabled, label, oncommand
+
+	- datepicker
+		- @type = (normal|grid|popup)
+		- @value = set to YYYY-MM-DD to set to a date
+		- @dateValue = set with a Date object
+		- @firstdayofweek = 0-6
+		- date = 1-31 -- set to change date
+		- @month = 0-11 -- set to change month
+		- @year = # -- set to change year
+	
+	- deck
+		- displays only one child at a time
+		- @selectedIndex == which child is visible
+		- @selectedPanel == dynamic reference to currently selected panel
+	
+	- description
+		- block of text which can be styled
+		- like label, but typically used for <description>...</description> format
+	
+	- dialog
+		- popup dialog box (subclass of window)
+		- @buttons = "accept,cancel,help,disclosure,extra1,extra2" - buttons used (alignment is correct per platform)
+		- @defaultButton = button value for enter-key activation
+		- ondialogaccept(), ondialogcancel(), ondialogdisclosure(), ondialogextra(), ondialoghelp()
+		- @title = titlebar text
+		- acceptDialog() -- same as OK
+		- cancelDialog() -- same as cancel
+		- centerWindowOnScreen()
+	
+	- dialogheader
+		- heading row for a dialog, should be inside <dialog>
+		
+	- dropmarker
+		- used as part of another button which reveals more details when pressed 
+			(eg: menulist and datepicker arrow button)
+	
+	- editor
+		- frame which is used to contain an editable document
+		- provides text editing image resizing and table row/cell editing
+		- you must provide your own UI for editing buttons
+		- @editortype = html|text
+		- @src = file to load
+	
+	
+	- grid
+		- used to do grids like TABLE
+		- can organize by rows or by columns (no need for cells)
+		- organize by rows:
+			- <grid>
+				<columns><column><column></columns>
+				<rows>
+					<row><button/><button/></row>
+					<row><button/><button/></row>
+				</rows>
+			  </grid>
+			- use an <hbox> in a row to next complicated structures
+			- use flex to adjust sizes of grid, children
+		- organize by columns:
+			- <grid>
+				<rows><row/><row/><row/></rows>
+				<columns>
+					<column><this/><that/><other/></columns>
+					<column><this/><that/><other/></columns>
+				</columns>
+			  </grid>
+		- you can have content in both rows and cols, which results in something like a <stack>
+		- apply flex to both columns and rows to be flexible both horizontally and vertically
+			(also apply to grid so it grows as well)
+		- to make something that spans the entire row/column, make child of rows
+				<grid>
+				  <columns>...</columns>
+				  <rows>
+					<row>...</row>
+					<button label="Equator"/>
+					<row>...</row>
+				  </rows>
+				</grid>
+			(also can do this in between columns to make something that spans full height)
+	
+	- grippy
+		- element used inside a splitter or toolbar to collapse it
+		- <splitter ...><grippy/></splitter>
+	
+	- groupbox
+		- framed box (eg: for radio buttons)
+		- uses <caption> element for title
+		- default orient = vertical
+		
+	- image
+		- image element
+		- onerror, onload - event handlers
+		- src =
+		- validate = "never|always" == check for new image never|always
+		- sets image to css:  "list-image-style"
+
+	- key/keyset
+		- keyboard shortcut
+		- key = ascii char
+		- keycode = ascii number
+		- modifiers = (shift|alt|meta|control|accel|access|any) - space separated
+			- "any" means things before 'any' are optional
+		- keytext = label
+		- command = id of a command being observed by the key
+		- <key key="r" modifiers="shift any control" oncommand='doit()' />
+		- <key/> - handles all key events
+		
+	- label
+		- text blob, clicking label activates control
+		- control = id of control associated with (for focusing)
+		- crop (see above)
+		- <label value='blah'/>	--- will not wrap!
+		- <label>blah blah</label> -- will wrap
+
+	- listbox
+		- list of items where one or more may be selected
+		- expected to contain listItem elements
+		- all rows are same height == height of tallest element in the list (c.f. richlistbox)
+		- preference = id of preference for value
+		- rows = # of rows to display,  getRowCount() == current number
+		- seltype = (single|multiple|cell[tree]|text[tree])
+		- value = value of data, not used by system but usable by you
+		- currentIndex - index of currently focused item or -1
+		- currentItem - last selected item in the list (only for multiple)
+		- .selectedIndex - number of selected item
+		- .selectedItem - currently selected item (or null)
+		- .selectedItems - for multi-select
+		- .selectedCount - # of items selected (or -1)
+		- .select()
+		- addItemToSelection()
+		- appendItem() -- add to end of list
+		- clearSelection()
+		- ensureElementIsVisible(element)
+		- ensureIndexIsVisible(#)
+		- getIndexOfFirstVisibleRow()
+		- getIndexOfItem(item)
+		- getItemAtIndex(#)
+		- getSelectedItem(#) -- # is number in selected list, not entire row list
+		- insertItemAt(index, label, value)
+		- invertSelection()
+		- removeItemAt()
+		- removeItemFromselection(item)
+		- scrollToIndex(index)
+		- selectAll()
+		- selectItem(item) -- selects ONLY this item
+		- selectItemRange(start, end) - inclusive, deselects, selects range
+		- toggleItemSelection(item)
+		
+		- <listbox id="theList">
+		   <listitem label="Ruby"/>
+		   <listitem label="Sapphire" selected="true"/>
+		   <listitem label="Diamond"/>
+		 </listbox>
+		
+		- cell in listbox (w/columns presumably)
+
+	- listcol/listcols
+	- listcell
+	- listheader/listhead
+		- adding columns/headers to listbox
+		- listcells can be made flexible with listcols
+		-  <listbox>
+			  <listhead>
+				<listheader label="Name"/>
+				<listheader label="Occupation"/>
+			  </listhead>
+			  <listitem>
+				<listcell label="George"/>
+				<listcell label="House Painter"/>
+			  </listitem>
+			  <listitem>
+				<listcell label="Mary Ellen"/>
+				<listcell label="Candle Maker"/>
+			  </listitem>
+			  <listitem>
+				<listcell label="Roger"/>
+				<listcell label="Swashbuckler"/>
+			  </listitem>
+			</listbox>
+	
+	- listitem
+		- type = (normal?|checkbox|radio)
+		- checked =
+		- current = true if this is the current item
+		- image = src
+		- label
+		- preference = id -- set value of preference matches value of element (?)
+		- selected = boolean (read only)
+		- 
+	
+	- menulist
+		- non-editable popup menu (w/o "editable")
+		- label= default value (interaction with 'selected' on menuitem?)
+		- <menulist label="Bus">
+		  <menupopup>
+			<menuitem label="Car"/>
+			<menuitem label="Taxi"/>
+			<menuitem label="Bus" selected="true"/>
+			<menuitem label="Train"/>
+		  </menupopup>
+		 </menulist>
+
+		- editable w/editable property
+		- entered text is not added as a new choice
+		-	<menulist editable="true">
+			  <menupopup>
+				<menuitem label="www.mozilla.org"/>
+				<menuitem label="www.xulplanet.com"/>
+				<menuitem label="www.dmoz.org"/>
+			  </menupopup>
+			</menulist>		
+	- menu
+		- placed in a menubar to show it's child <menupopup>
+		- also used to crete submenus
+	
+	- menubar
+		- holds a bunch of <menus>
+		- @statusbar id of statusbar element which will update with stautstext of hover menu item
+
+	- menuitem/menulist
+		- @type = (normal?|checkbox|radio)
+		- @acceltext = shortcut key  (c.f. @key)
+		- @accesskey = shortcut key for alt
+		- @autocheck = toggle for radio/checbox type
+		- @checked = boolean
+		- @command = command being observed (e.g. for disable)
+		- @closemenu = (auto|single|none) - when selected, close this+parent(auto), this(single) or nothing(none)
+		- @crop
+		- @description = ?
+		- @disabled
+		- @image = icon
+		- @key = key element whose shortcut is set in menuitem
+		- @label = text displayed
+		- @name = (for radios, to put in group)
+		- @selected = (read only)
+		- @value
+		- :labelElement - pointer to label for this
+		- :parentContainer - pointer to parent
+	
+	- menuseparator
+		
+	
+	- menupopup
+		- shows a popup menu
+		- may be placed inside a <menu>, <menulist>, <toolbarbutton> or <button type='menu'>
+		- may be popped up in any element with <element popup="">
+		- may be context menu for any element with <element context="">
+		- @onpopupshowing()		-- sent right before show, use to set contents dynamically (return false to cancel)
+		- @onpopupshown()		-- after open
+		- @onpopuphiding()		-- about to hide
+		- @onpopuphidden()		-- after hide
+		- @position				-- "after_start|after_end|before_start|before_end|
+									end_after|end_before|start_after|start_before|
+									overlap|at_pointer|after_pointer
+		- @left					-- override position specified by showPopup
+		- @top					-- override position specified by showPopup
+		- .state				-- (closed|open|showing|hiding)
+		- hidePopup()
+		- moveTo()
+		- openPopup( anchor , position , x , y , isContextMenu, attributesOverride )
+		- openPopupAtScreen( x, y, isContextMenu )
+		- showPopup()
+		- sizeTo( width, height )
+	
+	- progressmeter
+		- mode = (determined|undetermined)
+		- value = current vlaue (0-100)
+	
+	- preference/preferences
+		- @disabled
+		- @instantApply
+		- @inverted -- means control value "true" will disable the preference
+		- @readonly  - user cannot modify, script can
+		- @type (bool|int|string|unichar|wstring|file)
+			- unichar=unicode string, wstring=localized string - path in a property file which stores pref
+		- @onchange()
+		- .preferences -> pointer to prefs object
+		? can we just do preferences ad-hoc?
+	
+	- prefpane
+		- set of preferences in a prefWindow
+		- has <preferences> and everything else is a UI element
+		- @helpURI
+		- @image - for navigation button
+		- @label - for navigation button
+		- @onpaneload()
+		- @selected - if true, selected when window is opened
+		- @src - src of contents to load (in which case ignores inner elements)
+		- .preferences - ptr to list of prefs
+		- .preferenceElements - ptr to UI elements
+		- .preferenceForElement()
+	
+	- prefwindow
+		- specialized window used for prefpanes
+		- only 1 prefPane shown at a time
+		- shows navigation buttons automatically for prefpanes if > 1
+	
+	- progressmeter
+		- @mode = (determined|undetermined)
+		- @max (#, default 100)
+		- @value (#)
+		
+	- radio
+		- radio button
+		- @group = "@family"
+		- @selected  - use group.selectedIndex or group.selectedItem to change
+	
+	- resizer
+		- element used to resize its window in one direction
+		- @dir (left|rigth|top|bottom|bottomend|bottomleft|bottomright|topleft|topright)
+
+	- richlistbox
+		- same as listbox, but items can have complex contents (c.f. listbox)
+		- .timedSelect(item, timeout)
+		- .moveByOffset(offset, isSelecting, isSelectingRange)
+	
+	- splitter
+		- serves as splitter for the elements before and after it
+		- @state (open|collapsed)
+		- @collapse (before|after)	-- which will collapse
+		- @resizebefore (closest|farthest)
+		- @resizeafter (closest|farthest)
+	
+	- scale (slider)
+		- select from a range of values (a.k.a. slider)
+		- similar to number textbox w/ max/min/etc
+		- @orient = (horizontal|vertical)
+		- @dir = (reverse) -- higer value at start
+		- @increment
+		- @max
+		- @min
+		- @pageincrement
+		- .decrease()
+		- .decresePage()
+		- .increase()
+		- .increasePage()
+
+	- spacer
+		- space between elements
+		- flex=# for amount of space
+	
+	- textbox
+		- value=default
+		- type=number
+			- shows a spinbox
+			- min=#,  max=#  (if no value set, defaults to min)
+			- increment=# (amount to increase when spinbox arrows clicked)
+			- decimalplaces=# (default 0)
+	
+	- toolbar/toolbox
+		- can be anywhere, have any contents
+		- many toolbars go in a toolbox
+		- @mode (icons|text|full)
+		- @toolbarname - used in Show/Hide toolbars menu
+		
+
+	- timepicker
+		- set time as 12:05:05 PM   with arrows
+		- value = HH:MM:SS  (can omit seconds)
+		- 

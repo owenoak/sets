@@ -1,0 +1,35 @@
+Form/Control thoughts
+
+* prepareToDraw() has way too many ifs in there
+* get draw() a second time working, change redraw() to update()
+	- what about when update() needs to hit the server?
+* get attach() paradigm working
+* we've got an outer element for each control,
+	allow that to be a TD in a table
+
+
+Model/Control split
+* don't have getMax() or getLabel() function, just us property
+	- otherwise we can't tell if max is dynamic or not
+* assume we have a default DataAttribute per field?
+	- annoying because field can override, but we can't affect the main one
+* on instance init, figure out what is dynamic and what is static
+	and set up optimal call paths, otherwise we'll have to do this:
+
+		var max = (typeof this.max == "function" 
+					? this.max() 
+					: (this.attribute && typeof this.attribute.max == "function" 
+						? this.attribute.max(this) 
+						: (this.max != undefined 
+							? this.max 
+							: (this.attribute && typeof this.max ? this.attribute.max)
+						  )
+					  )
+				   );
+							
+	- better to do this just once when setting up:
+		this.max = this.max ? this.max : attribute && attribute.max ? attribute.max : undefined;
+		...
+		max = (typeof this.max == "function" ? this.max() : this.max);
+	
+	- can we do this automatically if we know the attributes we're trying to find?

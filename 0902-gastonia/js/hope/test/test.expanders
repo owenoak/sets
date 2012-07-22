@@ -1,0 +1,10 @@
+<expander id='test'>
+	I am a simple test #{yo}!
+</expander>
+
+<expander id='test2'>
+	"this" is in double quotes
+	'this' is in single quotes
+	blah
+	blah
+</expander>

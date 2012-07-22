@@ -1,0 +1,92 @@
+transition styles to support:
+	- Animate.Size
+		- change location/size
+		- pixels/ems/percentage
+
+	- Animate.Opacity
+		- change opacity
+
+	- Animate.Color
+		- change background
+		- change color
+
+	
+named transitions
+	- opacity animations
+		- show
+		- hide
+			- immediate show/hide
+			- case fade in/out as variants of show/hide?
+			
+		- fade in duration? timingFunction?
+		- fade out duration? timingFunction?
+		- fade to opacity duration? timingFunction?
+
+	- dimensions animations
+		- move left top width height? duration? timingFunction?
+		- resize width height? timingFunction?
+	
+		- grow top right? bottom? left? duration? timingFunction?
+			- if top is specified, bottom is ignored
+			- if bottom is specified, top is ignored
+		- grow top top duration? timingFunction?
+		- grow bottom bottom duration? timingFunction?
+		- grow left left duration? timingFunction?
+		- grow right right duration? timingFunction?
+			- grow one side of the widget to x amount
+
+		- shrink up duration? timingFunction?
+		- shrink down duration? timingFunction?
+		- shrink left duration? timingFunction?
+		- shrink right duration? timingFunction?
+			- shrink one side of the widget to x amount
+
+		- slide up top duration? timingFunction?
+		- slide down bottom duration? timingFunction?
+		- slide left left duration? timingFunction?
+		- slide right right duration? timingFunction?
+			- slide in from side
+		
+	
+	- color animations
+		- bg endColor startColor? duration? timingFunction?
+		- flash flashColor startColor? duration? timingFunction?
+			- fade from flashColor to startColor
+			? reset to no bg?  pass restore?
+		
+		- color endColor startColor? duration? timingFunction?
+		- color flash endColor startColor? duration? timingFunction?
+			- fade from startColor to endColor, then restore original
+			- reset to no color?  pass restore?
+
+
+	- compound animations
+		- fade flash showTime? timingFunction?
+			- fade in for duration, show for showTime, fade out for duration
+	
+		- shrink replace methodName? duration?
+			- shrink up, call replaceCallback, then grow down
+
+		- fade replace methodName? duration?
+			- fade out for duration, call replace callback, fade in for duration
+	
+
+	? zoom out
+	? zoom in
+
+
+- timing supported (same general set as Safari)
+	- ease		
+	- linear		
+	- ease-in		
+	- ease-out	
+	- ease-in-out
+	? bounce, etc are nice... ?
+
+- duration supported
+	- (\d*(.\d*)?)s
+	- very fast
+	- fast
+	- normal
+	- slow[ly]
+	- very slow[ly]

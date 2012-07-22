@@ -1,0 +1,39 @@
+<html>
+<style id='stylee'>
+	BODY		{margin:0px; padding:0px; border:0px;}
+	YOURTAG		{color:blue;font-size:40px;}
+	INNER_YOU	{background-color:green;}
+	INNER_ME	{background-color:lightblue;font-size:40px;}
+	.blah		{background-color:red;}
+</style>
+
+
+<script language='javascript'>
+
+
+function fixIECustomTags() {
+	var body = document.getElementsByTagName("BODY")[0];
+	var matches = body.innerHTML.match(/<([^\/]*?)>/g);	
+	var KNOWN_TAGS = {}
+	var innerTagRE = /<([^ ]*?)[ >]/;
+	for (var i = 0; i < matches.length; i++) {
+		var tagName = matches[i].match(innerTagRE)[1];		
+		if (!KNOWN_TAGS[tagName]) {
+			var el = document.createElement(tagName);
+			KNOWN_TAGS[tagName] = el;
+		}
+	}
+	body.innerHTML = body.innerHTML;
+}
+</script>
+
+
+<body onload='fixIECustomTags()'><div id='positioned'>
+<YOURTAG><INNER_YOU>inneryoudataXXXXXXX</INNER_YOU> <SPAN id='span' class='blah'>spandata</SPAN></YOURTAG>
+<br><INNER_ME>blargh</INNER_ME><br>
+<INNER_YOU>inneryouXXXX</INNER_YOU> <SPAN class='blah'>spandata</SPAN>
+</div>
+</body>
+
+</html>
+

@@ -1,0 +1,34 @@
+App/Page/Panel semantics
+	- App is a collection of Pages + Background (name?)
+		- apps can be loaded dynamically
+		- app has common logic, authentiction, prefs, operations, commands
+		- app has manifest of pages it knows about
+		- app has background framework which is shared by all (?) pages
+			- think about "app toolbar" case 
+				? is this just a place pages can stick their own toolbar objects?
+				? shared visual convention with separate toolbars?
+		- only one page is visible at a time (?)
+		- more than one app can be instantiated on a web page
+			- e.g. - IDE is just an app that you can bring into the page
+		- apps can interact (e.g. editor interacts with app)
+		
+	- Page is a collection of Panels/Toolbars/etc
+		- pages can be loaded dynamically
+		- page has common logic, prefs(?), operations(?), commands(?)
+		- page has manifest of controls/etc it knows about
+		- pages can be instantiated in new windows and point back to their app
+		- more than one of the same page can be instantiated at once ("compose" window)
+		- more than one layout for a page to handle iphone, etc?
+
+
+
+To Ponder
+	- difference between "commands" and "operations" 
+		- "command"
+			- high-level client-side event handler
+			- generally doesn't take arguments
+		- "operation" 
+			- client/server call and response (name?)
+			- sometimes does take arguments
+			- often require authentication
+		- mix and match in usage?  use namespace to distinguish?

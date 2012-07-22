@@ -1,0 +1,15 @@
+Open/Save cycle
+	- 
+
+
+XML-based class thing is too wierd
+	- noone else will like it
+	- adding a lot of overhead for what is essentially only of benefit in docs
+	- parsing functions/JS is hard
+	
+	 BUT
+	 	- we will want something like that for the end-user editing,
+	 		but maybe we do it a different way later
+
+HOWEVER
+	- pulling the children out into XML seems natural and good

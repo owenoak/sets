@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "//W3C//DTD HTML 4.01//EN">
+<html>
+<head>
+	<title>ClassFactory Tester</title>
+	<script src='/js/prototype.js'></script>
+	<script src='/js/hope/hope.js'>
+		console.error("inline");
+	</script>
+	
+	<style type='text/css'>
+		*								{	font-family:Verdana; font-size:12px;	}
+	</style>
+</head>
+<body>
+
+
+
+<script language='javascript'>
+
+
+
+Loader.registerNamespace("test", "/js/hope/test/classes/", {});
+ClassFactory.include("test::Pirate", function() {
+	window.john = new test.Pirate("Long John");
+	john.say("Ahoy there!");
+	
+	window.polly = new test.Animal("Polly");
+	polly.say("I wants a cracker");
+});
+
+
+
+
+
+</script>
+
+</body>
+</html>

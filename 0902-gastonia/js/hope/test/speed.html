@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "//W3C//DTD HTML 4.01//EN">
+<html>
+<head>
+	<title>Load Speed Tester</title>
+<script language='javascript'>
+console.profile();
+</script>
+<script language='javascript'>
+var t0 = new Date().getTime();
+</script>
+	<script src='/js/prototype.js'></script>
+<script language='javascript'>
+var t1 = new Date().getTime();
+</script>
+
+	<script src='/js/hope/hope.js'></script>
+
+
+	<style type='text/css'>
+		* {	font-family:Verdana; font-size:12px;	}
+	</style>
+	<link href="http://cancun.local/js/hope/ClassWatcher.css" type="text/css">
+<link rel="stylesheet" href="foo" type="text/css">
+</head>
+<body>
+
+<script language='javascript'>
+hope.when("hope::Expander",function(){
+	var t2 = new Date().getTime();
+	for (var i = 0; i < 100; i++) {
+		hope.create({id:"singleton"+i,superclass:"Singleton"});
+	}
+	var t3 = new Date().getTime();
+	for (var i = 0; i < 100; i++) {
+		hope.create({id:"Class"+i, manuallyRegister:true, methods:{initialize:function(){}}});
+	}
+	var t4 = new Date().getTime();
+	for (var i = 0; i < 100; i++) {
+		hope.create({id:"SClass"+i, methods:{initialize:function($super){}}});
+	}
+	var t5 = new Date().getTime();
+	for (var i = 0; i < 1000; i++) {
+		new Class0();
+	}
+	var t6 = new Date().getTime();
+	function SimpleClass(){
+		this.init();
+	};SimpleClass.prototype.init = function(){}
+	for (var i = 0; i < 1000; i++) {
+		new SimpleClass();
+	}
+	var t7 = new Date().getTime();
+	
+
+	console.log(t1-t0,"prototype");
+	console.log(t2-t1,"hope");
+	console.log(t3-t2,"100 singletons");
+	console.log(t4-t3,"100 classes");
+	console.log(t5-t4,"100 $super classes");
+	console.log(t6-t5,"1000 instances");
+	console.log(t7-t6,"1000 SimpleClass instances");
+console.profileEnd();
+});
+</script>
+
+</body>
+</html>

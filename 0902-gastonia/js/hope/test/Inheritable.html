@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "//W3C//DTD HTML 4.01//EN">
+<html>
+<head>
+	<title>Conditional Tester</title>
+	<script src='/js/prototype.js'></script>
+	<script src='/js/hope/hope.js'>
+
+		// example of setting up hope.ClassContext
+		var dynabooks = {toString : function(){return "(dynabooks)"}};
+		hope.ClassContext = dynabooks;
+		hope.ClassContextName = "dynabooks";
+	</script>
+	<style type='text/css'>
+		* {	font-family:Verdana; font-size:12px;	}
+	</style>
+</head>
+<body>
+
+<script language='javascript'>
+with (hope) {
+
+//	var Options = hope.createInheritable("options", function(o){if(o) hope.extend(this,o)});
+
+	function Foo() {
+		extendInstance(this, arguments);
+	}
+	Foo.prototype.toString = function(){return "PROTO"};
+	Foo.prototype.options = new Options({fromProto: "proto"});
+
+debugger;
+
+	var it = new Foo({
+		options:{fromInstance:'initValue'},
+		toString : function(){return "IT"}
+	});
+	
+	function Bar() {
+		hope.extendInstance(this, arguments);
+	}
+	Bar.prototype = new Foo();
+	
+	var bar = new Bar({options:{"bar":"bar"}});
+	
+	function show(msg) {
+		console.group(msg);
+		console.dir(Foo.prototype.options);
+		console.dir(it.options);
+		console.dir(bar.options);
+		console.groupEnd(msg);
+	}
+
+		
+	show("start");
+	
+	it.options.foo = "foo";
+	show('it.options.foo = "foo";');
+
+	it.options.fromInstance = "newValue";
+	show('it.options.fromInstance = "newValue";');
+
+
+
+	Foo.prototype.options.fromInstance = "newProtoValue";
+	show('Foo.prototype.options.fromInstance = "newProtoValue";');
+
+	Object.extend(bar.options, {a:'a', b:'b', fromInstance:'bar'});
+	show("Object.extend(bar, {a:'a', b:'b', fromInstance:'bar'});");
+
+
+
+	
+	var anObject = { a : { b : { c : "c"} } };
+	
+	var numlist = [ 1, 2, 3, [4, 5, 6], 7, 8, 9];
+
+};	// with (hope)
+</script>
+</body>
+</html>

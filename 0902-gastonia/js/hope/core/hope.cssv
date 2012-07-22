@@ -1,0 +1,76 @@
+/* Stylesheet for basic hope stuff */
+@variables {
+	HopeBg		: #e4ccac;
+	HopeBorder	: 3px solid #72624d;
+	HopeRadius	: .5em;
+}
+
+
+/* 
+	hope logo 
+	
+	html: 	 <span class='HopeLogo'>{<span class='Title'>hope</span>}</span>
+	      or
+	      	 <span class='HopeLogo'>{<span class='Title'>h</span>}</span>
+
+*/
+.HopeLogo {
+	display:inline-block;
+	font-size:2em;
+	background-color:var(HopeBg);
+	border:var(HopeBorder);
+	color:#777777;
+	padding:2px 8px 6px 8px;
+	font-family:Trebuchet MS, Arial, Helvetica, sans serif;
+	font-weight:bold;
+	-moz-border-radius:var(HopeRadius);
+	-webkit-border-radius:var(HopeRadius);
+}
+.HopeLogo .Title {
+	color:black;
+	font:inherit;
+	padding:0px 2px;
+}
+
+/* end hope logo */
+
+
+/* Hope stub console */
+#HopeConsole {
+	position:absolute;
+	left:0px;
+	bottom:1.5em;
+	height:80%;
+	width:100%;
+	border-top:3px solid black;
+	border-bottom:1px solid black;
+	background:#f8f8f8;
+	overflow:auto;
+	overflow-x:hidden;
+}
+#HopeConsoleExecutor {
+	position:absolute;
+	left:0px;
+	bottom:0px;
+	width:98%;
+	height:1em;
+	font-family:monospace;
+}
+
+#HopeConsole .Message {
+	font-family:monospace;
+	white-space:pre;
+	border-bottom:1px solid #eee;
+	padding:.1em 1em;
+	width:100%;
+}
+
+#HopeConsole .Warn 		{	background:pink;	}
+#HopeConsole .Info 		{	background:white;	}
+#HopeConsole .Error		{	background:yellow;	}
+#HopeConsole .Executed 	{	background:lightblue;	}
+
+/* end Hope stub console */
+
+
+

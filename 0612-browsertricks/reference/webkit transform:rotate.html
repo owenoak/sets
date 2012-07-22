@@ -1,0 +1,64 @@
+<html>
+<script language='javascript'>
+function byId(id) {
+	return (typeof id == "string" ? document.getElementById(id) : id);
+}
+function transform(id, angle, scale, skew, matrix) {
+	angle = angle || 0;
+	scale = scale || 1;
+	skew = skew || 0;
+	
+	var it = byId(id);
+	if (!it) throw Error("call as: transform(id, angle[0:359], scale[-1:1], skew[0:359])");
+
+	it.style.webkitTransform = 'rotate(' + angle + 'deg) scale('+ scale + ') skew('+ skew + 'deg)'
+
+//	it.style.webkitTransform = 'matrix('+matrix+')';
+}
+
+function doit() {
+	transform(	byId('id').value, 
+				byId('rotate').value, 
+				byId('scale').value, 
+				byId('skew').value, 
+				byId("matrix").value
+			);
+}
+</script>
+
+<style>
+	#outer {
+		width:150px;
+		padding:20px;
+		border:3px solid tan;
+		background-color:antiquewhite;
+		-webkit-border-radius:10px;
+		text-align:center;
+	}
+	
+</style>
+
+<style type='text/css'>
+	
+
+</style>
+
+<body>
+
+<div id='outer'>
+This is some text
+<button>And a Button</button>
+</div>
+  
+<br><br><br>
+<table>
+	<tr><th></th><th>id</th><th>rotate</th><th>scale</th><th>skew</th></tr>
+	<tr><td><button onclick='doit()'>Do It!</button></td>
+		<td><input type='text' id='id' value='outer'></td>
+		<td><input type='text' id='rotate' value='0'></td>
+		<td><input type='text' id='scale' value='1'></td>
+		<td><input type='text' id='skew' value='0'></td>
+		<td><input type='text' id='matrix' value='0 0 1 1 1 1' disabled></td>
+	</tr>
+</body>
+</html>

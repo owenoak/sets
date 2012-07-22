@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "//W3C//DTD HTML 4.01//EN">
+<html>
+<head>
+	<title>Loading Tester</title>
+        
+	<script src='/js/hope/loader.js'></script>
+	<style type='text/css'>
+		*								{	font-family:Verdana; font-size:12px;	}
+		body	{	margin:0px; background-image:url(/js/hope/drawable/grid.gif);	}
+	</style>
+</head>
+<body>
+<script>
+
+	hope.when("HTable", function() {
+		window.it = new HTable({
+			style:"width:100%;background-color:lightgreen;",
+			attributes:"border=1",
+			children : [
+				new Label({
+					value : "left",
+					style : "width:100px;background-color:blue;padding:10px;",
+					round : "medium"
+				}),
+				
+				new Label({
+					value : "middle middle middle middle middle middle",
+					style : "width:100%;background-color:pink;padding:10px;white-space:nowrap;"
+				}),
+				
+				new Label({
+					value : "right",
+					style : "width:100px"
+				})
+			]
+		});
+		it.draw();
+	
+	});
+/*
+	hope.when("HContainer", function() {
+		window.it = new HContainer({
+			style:"width:300px;margin:10px 0px;",
+			children : [
+				new Label({
+					value : "left",
+					style : "width:100%;background-color:blue",
+					round : "medium"
+				}),
+				
+				new Label({
+					value : "middle",
+					style : "background-color:pink;margin:10px;"
+				}),
+				
+				new Label({
+					value : "right"
+				})
+			]
+		});
+		it.draw();
+	
+	});
+*/
+</script>
+
+</body>
+</html>

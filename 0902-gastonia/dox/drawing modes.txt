@@ -1,0 +1,42 @@
+drawing modes
+	1) lay out straight HTML with in-line XML control definitions
+			+ don't have to cross-correlate multiple sets of data
+			- sticking in JS blocks is wierd for folks
+
+	2) lay out structure in HTML with <control:id>, <label:id> blocks
+		and controls defined somewhere else
+			+ good for multiple layouts
+			+ html can be done in simple interactive editor + plug in control
+			+ in prod mode, can inline html for quick initial draw
+
+	3) lay out with xml tags:  <table>, <tr>, <label>, <control>
+			- have to encode enclosing tag/etc data in controls
+			- can't put in aribitrary HTML easily
+			+ can make enclosing tags smarter
+			+ can have less spurious containing tags
+	
+			- all are first-level children, like so:
+				new Grid({cols:...}),
+				new Row({attributes:...}),
+				new Label({for:name}),
+				new TextField({modelid:name}),
+				new Row()
+				...
+	
+	
+Attaching elements/events
+	- elements to attach get:   attach='control.id$elementName'
+	-> get HTML for parent + all children (can be pre-cached)
+	-> select("[attach]")
+	-> if not seen, globalref to control.id and add $elementName child to it
+	-> set element.control to the element (even for sub-elements)
+	-> inline event handlers:   this.control.onBlah($e(event), this)
+	
+	? I think this is exactly what dojo does
+	
+	+ works for pre-expanded and inline expanded
+		- pre expanded just do once for parent
+		- inline expanded, want to do for each chunk separately
+	- make sure this control.attach() is the ONLY place where we pick up elements
+		so we can draw() again cleanly
+

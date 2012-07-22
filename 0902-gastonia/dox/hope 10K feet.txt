@@ -1,0 +1,66 @@
+hope @ 10,000 feet
+------------------
+
+	Dependencies
+		* remove prototype.js and see how much we really depend on
+		* sizzle?  pure?
+
+
+	Integrate
+		* DataWidget, MasterWidget, DetailWidget
+		* Page
+		
+	Widget
+		* figure out widget API
+		* cursors for x-platform?
+
+	API
+		* decide on doc tool
+		* review/doc api
+		* privatize lots of stuff
+		* basic doc tool (in JS?  use docutron?)
+		* set up wiki somewhere?
+
+	Unit test
+		* basic framework
+		* class loader
+		* vet current set of files
+
+	Compatibility
+		* get base stuff working in FF
+		* get base stuff working in Safari
+		* get base stuff working in Chrome
+		* get base stuff working in IE7
+		* get base stuff working in IE8
+
+	Docutron
+		* refactor to Drawable
+  		* refactor to new scheme of things
+  		* function prototype chain lookup
+  		* Safari 3
+  		* IE7
+  	
+  	Templates
+		* further evaluation for PURE
+  		* compile templates
+  		* move update/etc from g6 back to hope
+  	
+  	Class Stuff/Loading
+  		* merge FileIncluder, Script and Stylesheet ?
+  		* auto-install Expander when needed rather than at startup?
+  		* get rid of protoChain
+  		* get inline script pre-loading working
+  		* ¿ Class.prototype == null ?
+  		* remove isABlah from instances
+		* hope::Docutron.expanders = []  in CF.LoadedThings
+  	
+	Generic
+		* Array.forEach, etc
+
+
+  	Performance
+  		* check speed of eval'd constructor
+  		* 
+  	
+  	Debugging
+  		* move non FF debugger into a separate file which we auto-load?

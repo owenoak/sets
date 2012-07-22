@@ -1,0 +1,41 @@
+Where are we?	Apr 22, 2009
+
+	- 3.5 weeks away from leaving for 4 months w/ who knows how much focus
+	- gear6 is getting pretty good but is inconsistent in a number of screens/widget patterns
+	- gear6 branch is very advanced in terms of widgets/controller etc
+	- still futzing with fundamentals of CF, hope, loading
+	- no server presence at this point
+	- no doc pattern at this point
+	- badly unfocused - still questioning base of system, decision to not use e.g. dojo, etc
+	
+
+What would we like to have done by May 15?
+	- hope core is super solid
+		- loader
+		- class factory
+		- template system
+		- widget creation/embedding
+	- control/controller is solid
+		- integrate all of gear6 branch control/controller
+		- get model/controller stuff working solid
+	- operation support is solid
+	- refactor all of gear6 onto hope?
+
+- Controls / Controllers / Views
+
+
+Solid list of todos:
+	- get model & control thing working for Gear6
+		- get control/schema hookup working
+		- convert control to JSON schema
+			- label, min()/max(), options, "default", required -> optional
+			- 'name' rather than 'id'
+		- integrate new draw.js stuff into control
+		- convert MS.editor
+		- convert MS view
+			- visual
+			- operations
+		- model/view for Memcache screen
+	- convert all drawing in Gear6 to Control paradigm
+	- make sure all of hope so far works in IE7/8/Safari/FF3+
+	- 

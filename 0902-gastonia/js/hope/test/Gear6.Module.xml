@@ -1,0 +1,71 @@
+<View id='Gear6::MemcacheModuleView' as='module'>
+	<CollapsingSection class='ref::module.errorStatus'>
+		<Header cols=3>
+			<Toggler maximize='width' class='title'>
+				<Label value='ref::module.name'/>
+				<Label value='ref::module.getMasterStatus()'/>
+				<Icon  value='ref::module.errorStatus'/>
+			</Toggler>
+			<ProgressGraph name='dramGraph' value='ref::module.dramUsagePercent' 
+				prefix='messages::dramQty(module)' suffix='ref::module.dramUsagePercent.formatPercent()'/>
+			<ProgressGraph name='flashGraph' value='ref::module.flashUsagePercent' 
+				prefix='messages::flashQty(module)' suffix='ref::module.flashUsagePercent.formatPercent()'/>
+		</Header>
+
+		<HContainer>
+			<VContainer>
+				<Gear6::MemcacheBayView model='ref::module.byId("bay01")'/>
+				<Gear6::MemcacheBayView model='ref::module.byId("bay02")'/>
+			</VContainer>
+			<VContainer>
+				<Gear6::MemcacheBayView model='ref::module.byId("bay03")'/>
+				<Gear6::MemcacheBayView model='ref::module.byId("bay04")'/>
+			</VContainer>
+			<VContainer>
+				<Gear6::MemcacheBayView model='ref::module.byId("bay05")'/>
+				<Gear6::MemcacheBayView model='ref::module.byId("bay06")'/>
+			</VContainer>
+		</HContainer>
+	</CollapsingSection>
+</View>
+
+<View id='Gear6::MemcacheBayView' as='bay'>
+	<Section class='ref::[bay.type,bay.errorStatus]'>
+		<Header cols='3'>
+			<Action type='link' width='maximize' value='ref::bay.name' command='bay.showDetails' with='bay'/>
+			<Icon value='ref::bay.errorStatus'/>
+			<Label value='ref::bay.number'/>
+		</Header>
+		<DataGrid showIf='bay.type != "empty"'>
+			<Header cols='3'>
+				<Label value='messages::IOLabel'/>
+				<Label value='messages::AllocatedLabel'/>
+				<Label value='ref::(bay.type == "system" ? "" : messages.LifetimeLabel)'/>
+			</Header>
+			<!-- online Row -->
+			<Row name='online' showIf='bay.online == true'>
+				<VContainer>
+					<HContainer>
+						<Label value='messages::R:'/>
+						<Value value='ref::bay.readBytes.toBytesPerSecondString(0)'/>
+					</HContainer>
+					<HContainer>
+						<Label value='messages::W:'/>
+						<Value value='ref::bay.writeBytes.toBytesPerSecondString(0)' />
+					</HContainer>
+				</VContainer>					
+				<ProgressGraph value='ref::bay.allocatedPercent' suffix='ref::bay.getAllocatedLabel()'/>
+				<SpeedoGraph value='ref::bay.lifetimePercent' showIf='bay.type != "system"'/>
+				<Icon value='disk' showIf='bay.type == "system"'/>
+			</Row>
+			<!-- offline Row -->
+			<Row name='offline' showIf='bay.online == false'>
+				<Label colspan='2' value='messages::DriveIsOffline'/>
+				<SpeedoGraph value='ref::bay.lifetimePercent' showIf='bay.type != "system"'/>
+				<Icon value='disk' showIf='bay.type == "system"'/>
+			</Row>
+		</DataGrid>
+		<!-- empty label -->
+		<Label name='emptyLabel' showIf='bay.type == "empty"' value='messages::emptyBay' maximize='true'/>
+	</Section>
+</View>

@@ -1,0 +1,50 @@
+Draggable mixin
+	- isInDragArea(event)
+DragResizable mixin
+
+ExpanderWidget   (?Expandable?  Mixin?)
+CanvasWidget
+
+Slider Layout   -- makes target element a filler, adds resize arrows on either side if too big for space
+	(rename Spliiter to SplitLayout?  Slideable?)
+Scroller layout -- like a slider but custom scrollbars in one or both directions
+PartEventHandler 
+	-- for widget where you have distinct parts but don't want to create a sub-widget fore each
+Toolbar - manages a set of buttons, possibly a sliderlayout
+	- buttons can be widgets or parts
+Gauge - visual representation of a scalar
+Drawable?
+Popup mixin
+Hoverable mixin
+ModalPopup mixin
+Dialog
+PropertyDialog (remembers old props and saves diffs, etc)
+TabContainer (name?  Stack?)
+Section
+	- header, footer, main
+	- auto-layout?
+	- can be draggable, etc
+	
+
+
+Settable pattern
+	- has "options" object which inherits from super
+	- set({}) or set(key,value)  [ do NOT auto-create setters ]
+	- get is just options.key
+	- auto-remember last values?
+	- id and options?  pass id into identify/register?
+	- think about getting properties back out for saving	
+
+App semantics (convention over configuration)
+	- App, Page, Section concepts  (all are loadable on the fly)
+	- in your page, you load /hope/hope.js and /you/appName.js
+		- auto-loads /you/appname/page/<pageFileName>.js
+	
+
+
+TODO
+	- dependency map visualization
+	- mark a class as pre-loaded for page compiler
+	- figure out $super() attachment for Mixins and instances
+	- whole observe/notify thing?
+	- examine a bunch of apps (Zimnbra, gmail, zoho, campfire) for widget ideas and patterns

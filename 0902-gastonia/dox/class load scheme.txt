@@ -1,0 +1,53 @@
+ClassFactory.Supers				-- list of supers for each class
+ClassFactory.Subs				-- list of subs for each class
+ClassFactory.CreateCallbacks	-- callback to create class iff class has not been created
+
+
+
+createClass("Service", "ProtoWidget ExpanderMixin", {...})
+
+	= ClassFactory.Supers.Service = ["ProtoWidget","ExpanderMixin"]
+	= ClassFactory.Subs.ProtoWidget = ["Service"]
+	= ClassFactory.Subs.ExpanderMixin = ["Service"]
+	
+	= ClassFactory.CreateCallbacks.Service = callback()
+	
+	-> include("ProtoWidget.js")
+	<- loadCallback("ProtoWidget.js")
+	   		-> ClassFactory.create("ProtoWidget", {...})
+				* ProtoWidget is created immediately because it has no supers
+				- check subs for ClassFactory.Subs.ProtoWidget
+					- ClassFactory.Supers.Service -> not all loaded, forget it
+
+
+	-> include("ExpanderMixin.js")
+	<- loadCallback("ExpanderMixin.js")
+		   -> ClassFactory.createMixin("ExpanderMixin","CookieMixin", {...})
+				= ClassFactory.Subs.CookieMixin = ["ExpanderMixin"]
+				= ClassFactory.Supers.ExpanderMixin = ["CookieMixin"]
+				- for each sub in ClassFactory.Subs.ExpanderMixin, 
+					- add CookieMixin as a Super of sub
+						= ClassFactory.Supers.Service == ["ProtoWidget","ExpanderMixin", "CookieMixin"]
+					- add sub as a Sub of CookieMixin
+						= ClassFactory.Subs.CookieMixin = ["ExpanderMixin", "Service"]
+
+			- supers are not loaded, so defer creation of ExpanderMixin
+				= ClassFactory.CreateCallbacks.ExpanderMixin = callback()
+			
+	-> include("CookieMixin.js")
+	<- loadCallback("CookieMixin.js")
+			-> ClassFactory.createMixin("CookieMixin", {...})
+				* CookieMixin is created immediately because it has no supers
+					- for each sub in ClassFactory.Subs.CookieMixin
+					  create class if all supers are loaded && there is a callback defined
+							* ExpanderMixin is created
+								  ClassFactory.CreateCallbacks.ExpanderMixin()
+								  delete ClassFactory.CreateCallbacks.ExpanderMixin
+
+								- for each sub in ClassFactory.Subs.ExpanderMixin
+								  create class if all supers are loaded && there is a callback defined
+								  
+								  	* Service is created
+										  ClassFactory.CreateCallbacks.Service()
+										  delete ClassFactory.CreateCallbacks.Service
+

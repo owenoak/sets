@@ -1,0 +1,75 @@
+What is ideal?
+	- don't have to pass $super as argument
+	- call:  $super(...)
+	- don't have to bind for evey call
+
+
+
+	
+	/* WORKING:
+		// NOTE: no error checking on this -- make sure all parameters are passed
+		_superizeMethod : function(it, key, method) {
+			var itsMethod = it[key], $super;
+
+			// if it has its own method, wrap that directly
+			if (it.hasOwnProperty(key)) {
+				$super = function() {	
+					console.warn("hasOwnMethod: ",key,"called:",it, key, method);
+					return itsMethod.apply(this, arguments) 
+				};
+
+			// if it has no method, wrapper is an empty function
+			} else if (itsMethod == null || !it.superclass) {
+				$super = function(){
+					console.warn("noop function",key,"called:",it, key, method);
+				};
+
+			// otherwise wrap the named method of the ancestor
+			} else {
+				var ancestor = it.superclass.prototype;
+				$super = function() {	
+					console.warn("ancestor: ",key,"called:",it, key, method, ancestor);
+					return ancestor[key].apply(this, arguments) 
+				};
+			}
+			return $super.wrap(method);
+		},
+	*/
+
+        
+   /*     
+        
+
+	// prototype's way
+			return function() {
+			  return originalMethod.apply(this, [
+			  		(function() { return ancestor[key].apply(this, arguments) }).bind(this)
+			  	].concat($A(arguments)));
+			}
+
+			
+	// my way
+	
+		if (it.hasOwnProperty(key)) {
+			// has own method case
+			return function() {
+				var me = this, args = $A(arguments);
+				args.unshift(function() {return originalMethod.apply(me, arguments)});
+				return method.apply(me, args);
+			}
+		} else 
+			// has proto method case
+			return function() {
+				var me = this, args = $A(arguments);
+				args.unshift(function() { return me.superclass.prototoype[key].apply(me, arguments) });
+				return method.apply(this, args));
+			}
+
+			// no method defined case
+			return function() {
+				return method.apply(this, [hope.noop].concat($A(arguments)));
+			}
+			
+	*/
+
+

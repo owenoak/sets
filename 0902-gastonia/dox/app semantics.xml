@@ -1,0 +1,41 @@
+<app id='Digicam'>
+	...
+	<menu id='sitemenu'>...</menu>
+	...
+	<layout for='browser'>
+		<grid>
+			<columns>
+				<column width='160px'/>
+				<column width='100%'/>
+			</columns>
+			<row><header src='' colspan='2'/></row>
+			<row><page.toolbar colspan='2'/></row>
+			<row><app.sitemenu/><page.layout/></row>
+			<row><footer src='' colspan='2'/></row>
+		</grid>
+	</layout>
+	<layout for='mobile'>
+		...	
+	</layout>
+</app>
+
+
+- app and page have 'layout' objects which control the layout of pieces
+	- embed HTML directly in the layout
+	- embed hope controls in the layout which will be expanded
+	- use inline and CSS for styling
+	- layouts can be targeted for different platforms 
+		? browser, mobile, ???
+		? screen sizes?
+- layout elements
+	- most are static HTML or controls which will be expanded in place
+	- can have a @src='' attribute, indicating that they will be loaded from another file
+	- app can declare <controls> which can be embedded in the layout (eg: <sitemenu>)
+	- control can have  from='page'  which indicates the page element of the same name will go there
+		(eg: <toolbar from='page'> and <layout from='page'>
+
+- GOAL
+	- allow separation of control definition/functionality from layout 
+	- allow for multiple layouts of the same thing
+	- allow for easily embedding pieces from children (eg:  app->page)
+		which will be swapped out as children change

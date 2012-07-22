@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "//W3C//DTD HTML 4.01//EN">
+<html>
+<head>
+	<title>Function Tester</title>
+	<script src='/js/prototype.js'></script>
+	<script src='/js/lib/_new/prototype.extensions2.js'></script>
+	<style type='text/css'>
+		* {	font-family:Verdana; font-size:12px;	}
+	</style>
+</head>
+<body>
+
+<script language='javascript'>
+
+//
+//	NOTE: the following does not work   :-(
+//	
+
+var it = {
+	id : "it",
+	go : function(arg) {
+		arguments.$super(arg);
+		console.warn(this.id+".go() is done");
+	}
+}
+
+
+/*
+//
+//	NOTE: the following does not work   :-(
+//	
+function superize(thisObject, methodName, $super) {
+	var original = thisObject[methodName];
+	
+	thisObject[methodName] = function() {
+		with ($super) {
+			return original.apply(thisObject, arguments);
+		}
+	}
+}
+*/
+
+function superize(thisObject, methodName, $super) {
+	var original = thisObject[methodName];
+	
+	thisObject[methodName] = function() {
+		arguments.$super = $super;
+		return original.apply(thisObject, arguments);
+	}
+}
+
+
+superize(it,"go",function(){console.warn("super called")});
+
+it.go();
+
+</script>
+</body>
+</html>

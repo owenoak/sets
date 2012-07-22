@@ -1,0 +1,67 @@
+Lord help me, I want to do the full "encapsulate the class in xml" thing
+	+ maybe can munge $super etc?
+	+ great for literate programming
+	+ logic and html presentation in one place, naturally
+	+ highly structured == easy to transform
+	+ can put meta-data on things (eg: attributes) which we'll need for editors
+	+ can do debug stuff in some smart way that will strip it out of production code
+	- hard to debug (but I'll have that anyway)
+	- others will think it's wierd
+	- pedantics will insist on CDATA nonsense but screw that
+	- parsing functions is hard
+
+!!!   in template,   @{foo} means 'if there is an attribute 'foo', output that here'
+!!!   enforce id for children to pick out of parents
+!!!   convert "onblah" keys to lower case before assigning
+
+?? maybe our outer element is drawn automatically? wasteful?
+
+Event handling
+	- instead of attaching methods directly to the element, have a callback mechanism, eg:
+		<div  onmouseover="#{globalRef()}.onmouseover(event, this)"
+	- use @{events} to set this up in the outer element (speed?)
+
+
+General todo:
+	- get basic parsing/expanding working
+	- get item to/from HTML working
+	- get generic non-safe, non-authenticated saver working
+	- get simple page load/tweak/save cycle working
+	- make tons of widgets
+	- get simple editor working
+
+Parsing todo
+	- get parser.getNextTag()
+	- get simple translation to object creators working (just w/ label,container,etc)
+		- make sure it handles HTML contents as well
+		- leave html children as strings?
+
+Parsing algorithm
+	- only parse results of expansion if expander.parseChildren
+	- 
+
+
+
+Custom tag parsing:
+- Classes delegate to XML(ish) views for drawing/composing children
+- Views are compiled into optimized functions for:
+	- creating children
+	- outputting HTML
+	- updating efficiently
+- 
+
+
+
+Attributes
+	- attributes in tags are passed directly to the generated constructors
+	- use '#{...}' in an attribute to indicate an expansion
+
+
+? how to handle mixed HTML/values?
+
+
+
+PROBLEM
+	- We have a lot of things like layouts, popup menus, etc that we want to enable for all widgets
+		but most widgets will not need them.  How to make this fast?
+	? pass an "afterDraw" array of methods to constructor ?

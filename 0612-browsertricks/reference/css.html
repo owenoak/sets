@@ -1,0 +1,1669 @@
+<html>
+	<title>CSS Reference - BrowserTricks</title>
+	<link rel="stylesheet" type="text/css" href="../styles.css" />
+	<script type="text/javascript" src="../bt.js"></script>
+<body>
+<div class='TopHeader'>Browser Tricks - CSS Reference</div>
+<iframe id="NavBar" src="NavBar.html"></iframe>
+
+<enum id='audio-location'> 
+	<header>audio-location</header>
+	<values>
+			<value class='string' title='270deg'>left-side</value> |
+			<value class='string' title='270deg'>left-side behind</value> |
+			<value class='string' title='300deg'>far-left</value> |
+			<value class='string' title='240deg'>far-left behind</value> |
+			<value class='string' title='320deg'>left</value> |
+			<value class='string' title='220deg'>left behind</value> |
+			<value class='string' title='340deg'>center-left</value> |
+			<value class='string' title='200deg'>center-left behind</value> |
+			<value class='string default' title='0deg'>center</value> |
+			<value class='string' title='180deg'>center behind</value> |
+			<value class='string' title='20deg'>center-right</value> |
+			<value class='string' title='160deg'>center-right behind</value> |
+			<value class='string' title='40deg'>right</value> |
+			<value class='string' title='140deg'>right behind</value> |
+			<value class='string' title='60deg'>far-right</value> |
+			<value class='string' title='120deg'>far-right behind</value> |
+			<value class='string' title='90deg'>right-side</value>  |
+			<value class='string' title='90deg'>right-side behind</value> |
+			<value class='string' title='180deg'>behind</value>
+	</values>
+</enum>
+
+<enum id='angle'> 
+	<header>angle</header>
+	<values>
+		
+			<value class='string' title='Front (center)'>-360deg</value> ...
+			<value class='string' title='Right'>-270deg</value> ...
+			<value class='string' title='Behind (center)'>-180deg</value> ...
+			<value class='string' title='Left'>-90deg</value> ...
+			<value class='string' title='Front (center)'>0deg</value> ...
+			<value class='string' title='Right'>90deg</value> ...
+			<value class='string' title='Behind (center)'>180deg</value> ...
+			<value class='string' title='Left'>270deg</value> ...
+			<value class='string' title='Front (center)'>360deg</value>
+		
+	</values>
+</enum>
+
+<enum id='border-style'> 
+	<header>border-style</header>
+	<values>
+			<value class='string' title='No border.'>none</value> |
+			<value class='string' title='Same as "none".'>hidden</value> |
+			<value class='string' title='Series of dots.'>dotted</value> |
+			<value class='string' title='Series of short line segments.'>dashes</value> |
+			<value class='string' title='Single straight line.'>solid</value> |
+			<value class='string' title='Two straight lines that add up to border-width length.'>double</value> |
+			<value class='string' title='3-D carved-in effect, opposite of "ridge".'>groove</value> |
+			<value class='string' title='3-D raised effect, opposite of "groove"'>ridge</value> |
+			<value class='string' title='Shadowed box which appears embedded, opposite of "outset".'>inset</value> |
+			<value class='string' title='Shadowed box which appears raised, opposite of "inset".'>outset</value>
+	</values>
+</enum>
+
+<itemlist>
+
+	<item id='azimuth' categories='audio spatial'>
+		<term title='Horizontal angle of sound data, used with elevation for 3-D aural presentation.'>azimuth</term>
+		<values>
+			<value class='enum' ref='angle' title='Angle within the range "-360deg" to "360deg".  "0deg" == front (center).'>angle</value> |
+			<value class='enum' ref='audio-location' title='Named audio location, eg: "far-left" or "center-right behind".'>audio-locations</value> |
+			<value class='string' title='20 degrees counter-clockwise from current position.'>leftwards</value> | 
+			<value class='string' title='20 degrees clockwise from current position.'>rightwards</value> | 
+			<value class='string' title=''>inherit</value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:azimuth' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='background' class='parent' categories='appearance background'>
+		<term title='Shorthand for applying one or more background properties.'>background</term>
+		<values>
+			[
+				<value class='subproperty' title=''>background-color</value> |
+				<value class='subproperty' title=''>background-image</value> |
+				<value class='subproperty' title=''>background-repeat</value> |
+				<value class='subproperty' title=''>background-attachment</value> |
+				<value class='subproperty' title=''>background-position</value> 
+			] |
+				<value class='string' title=''>inherit</value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:background' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+		<children>
+			<item id='background-attachment' categories='appearance background'>
+				<term title='Determines whether a background-image is fixed within the window or scrolls.'>background-attachment</term>
+				<values>
+					<value class='string default' title='Background scrolls with its containing element.'>scroll</value> |
+					<value class='string' title='Background will not scroll when containing element scrolls.'>fixed</value> |
+					<value class='string' title=''>inherit</value>
+				</values>
+				<details>
+					<refs>
+						<a href='http://developer.mozilla.org/en/docs/CSS:background-attachment' class='moz'>moz &rarr;</a>
+					</refs>
+				</details>
+			</item>
+			
+			<item id='background-color' categories='appearance background'>
+				<term title='Background (solid) color of an element.'>background-color</term>
+				<values>
+					<value class='enum' title='RGB value, eg: "#1a33e6", "#fff" or "rgb(123,21,0)"'>RGB</value> |
+					<value class='enum' title='Named color, eg: "black", "white", "red"'>named-color</value> |
+					<value class='string default' title='No background color.'>transparent</value> |
+					<value class='string' title=''>inherit</value>
+				</values>
+				<details>
+					<refs>
+						<a href='http://developer.mozilla.org/en/docs/CSS:background-color' class='moz'>moz &rarr;</a>
+					</refs>
+				</details>
+			</item>
+			
+			<item id='background-image' categories='appearance background'>
+				<term title='Background image for an element.'>background-image</term>
+				<values>
+					<value class='enum' title='URI reference to image, eg: url("images/foo.gif").'>uri</value>
+					<value class='string default' title='No background image.'>none</value>
+					<value class='string' title=''>inherit</value>
+				</values>
+				<details>
+					<refs>
+						<a href='http://developer.mozilla.org/en/docs/CSS:background-image' class='moz'>moz &rarr;</a>
+					</refs>
+				</details>
+			</item>
+			
+			<item id='background-position' categories='appearance background'>
+				<term title='Initial position of background image relative to content.'>background-position</term>
+				<values>
+					[
+						<value class='enum' title='Fixed size, percentage or string, eg: "2px", "40%", "left", "center", "right"'>horizontal-position</value> |
+						<value class='enum' title='Fixed size, percentage or string, eg: "2px", "40%", "top", "center", "bottom"'>vertical-position</value>?
+					] |
+					<value class='string' title=''>inherit</value>
+				</values>
+				<details>
+					<refs>
+						<a href='http://developer.mozilla.org/en/docs/CSS:background-position' class='moz'>moz &rarr;</a>
+					</refs>
+					<notes>
+						<note>First value is horizontal position, second is vertical.</note>
+						<note>If only one value is specified, that is horizontal and vertical is 50%.</note>
+					</notes>
+				</details>
+			</item>
+			
+			<item id='background-repeat' categories='appearance background'>
+				<term title='Specifies how background image is repeated (tiled).'>background-repeat</term>
+				<values>
+					<value class='string default' title='Repeat in both horizontal and vertical directions.'>repeat</value> |
+					<value class='string' title='Repeated in the horizontal axis only.'>repeat-x</value> |
+					<value class='string' title='Repeated in vertical axis only.'>repeat-y</value> |
+					<value class='string' title='Do not repeat at all: only one copy of image is drawn.'>no-repeat</value> |
+					<value class='string' title=''>inherit</value>
+				</values>
+				<details>
+					<refs>
+						<a href='http://developer.mozilla.org/en/docs/CSS:background-repeat' class='moz'>moz &rarr;</a>
+					</refs>
+				</details>
+			</item>
+		</children>
+	</item>
+	
+	
+	<item id='border' categories='appearance border'>
+		<term title='Shorthand for applying many border properties to all four sides.'>border</term>
+		<values> [
+			<value class='subproperty' title='Width of the border.'>border-width</value> ||
+			<value class='subproperty' title='Style of the border.'>border-style</value> ||
+			<value class='subproperty' title='Color of the border.'>border-color</value> ] |
+			<value class='string' title='Use same value as parent?'>inherit</value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:border' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='border-bottom' categories='appearance border'>
+		<term title='Shorthand for applying many border properties to bottom side only.'>border-bottom</term>
+		<values> [
+			<value class='subproperty' title='Width of the border.'>border-width</value> ||
+			<value class='subproperty' title='Style of the border.'>border-style</value> ||
+			<value class='subproperty' title='Color of the border.'>border-color</value> ] |
+			<value class='string' title='Use same value as parent?'>inherit</value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:border-bottom' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='border-bottom-color' categories='appearance border'>
+		<term title='Color of the bottom border.'>border-bottom-color</term>
+		<values>
+			<value class='enum' title='RGB value, eg: "#1a33e6", "#fff" or "rgb(123,21,0)"'>RGB</value> |
+			<value class='enum' title='Named color, eg: "black", "white", "red"'>named-color</value> |
+			<value class='string default' title='No color, shows color of element behind it.'>transparent</value> |
+			<value class='string' title=''>inherit</value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:border-bottom-color' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='border-bottom-style' categories='appearance border'>
+		<term title='Line style of the bottom border.'>border-bottom-style</term>
+		<values>
+			<value class='enum' ref='border-style' title='none|hidden|solid|dotted|dashed|groove|ridge|inset|outset|double'>border-style</value> |
+			<value class='string' title=''>inherit</value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:border-bottom-style' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='border-bottom-width' categories='appearance border'>
+		<term title='Width of the bottom border.'>border-bottom-width</term>
+		<values>
+			<value class='enum' title='Explicit non-negative size, eg: "2px" or "1cm"'>length</value> |
+			<value class='string' title=''>thin</value> |
+			<value class='string' title=''>medium</value> |
+			<value class='string' title=''>thick</value> |
+			<value class='string' title=''>inherit</value> 
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:border-bottom-width' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='border-collapse' categories='appearance border spacing table'>
+		<term title='Sets whether table cell borders are separated for neighboring cells.'>border-collapse</term>
+		<values>
+			<value class='string default' title='Each cell can have a border on all 4 sides.'>separate</value>
+			<value class='string' title='Cell borders are shared between neighboring cells.'>collapse</value>
+		</values>
+		<details>
+			<elements>TABLE only</elements>
+			<refs>
+				<a href='http://msdn.microsoft.com/workshop/author/dhtml/reference/properties/bordercollapse.asp' class='msdn'>msdn &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='border-color' categories='appearance border'>
+		<term title='Set color for up to four sides of the element border.'>border-color</term>
+		<values>
+			[ 	<value class='enum' title='RGB value, eg: "#1a33e6", "#fff" or "rgb(123,21,0)"'>RGB</value> |
+				<value class='enum' title='Named color, eg: "black", "white", "red"'>named-color</value> |
+				<value class='string' title='No color (although it may have width), background bleeds through.'>transparent</value> ]{1,4} |
+			<value class='string' title=''>inherit</value>
+		</values>
+		<details>
+			<notes>
+				<note>If one value: that value is used for all four sides.</note>
+				<note>If two values: first is top and bottom, second is left and right.</note>
+				<note>If three values: first is top, second is left and right, third is bottom.</note>
+				<note>If four values: first is top, second is right, third is bottom, fourth is left.</note>
+			</note>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:border-color' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='border-left' categories='appearance border'>
+		<term title='Shorthand for applying many border properties to left side only.'>border-left</term>
+		<values> [
+			<value class='subproperty' title='Width of the border.'>border-width</value> ||
+			<value class='subproperty' title='Style of the border.'>border-style</value> ||
+			<value class='subproperty' title='Color of the border.'>border-color</value> ] |
+			<value class='string' title='Use same value as parent?'>inherit</value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:border-left' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='border-left-color' categories='appearance border'>
+		<term title='Color of the left border.'>border-left-color</term>
+		<values>
+			<value class='enum' title='RGB value, eg: "#1a33e6", "#fff" or "rgb(123,21,0)"'>RGB</value> |
+			<value class='enum' title='Named color, eg: "black", "white", "red"'>named-color</value> |
+			<value class='string default' title='No color, shows color of element behind it.'>transparent</value> |
+			<value class='string' title=''>inherit</value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:border-left-color' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='border-left-style' categories='appearance border'>
+		<term title='Line style of the left border.'>border-left-style</term>
+		<values>
+			<value class='enum' ref='border-style' title='none|hidden|solid|dotted|dashed|groove|ridge|inset|outset|double'>border-style</value> |
+			<value class='string' title=''>inherit</value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:border-left-style' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='border-left-width' categories='appearance border'>
+		<term title='Width of the left border.'>border-left-width</term>
+		<values>
+			<value class='enum' title='Explicit non-negative size, eg: "2px" or ".1em"'>length</value> |
+			<value class='string' title=''>thin</value> |
+			<value class='string' title=''>medium</value> |
+			<value class='string' title=''>thick</value> |
+			<value class='string' title=''>inherit</value> 
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:border-left-width' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='border-right' categories='appearance border'>
+		<term title='Shorthand for applying many border properties to right side only.'>border-right</term>
+		<values> [
+			<value class='subproperty' title='Width of the border.'>border-width</value> ||
+			<value class='subproperty' title='Style of the border.'>border-style</value> ||
+			<value class='subproperty' title='Color of the border.'>border-color</value> ] |
+			<value class='string' title='Use same value as parent?'>inherit</value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:border-right' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='border-right-color' categories='appearance border'>
+		<term title='Color of the right border.'>border-right-color</term>
+		<values>
+			<value class='enum' title='RGB value, eg: "#1a33e6", "#fff" or "rgb(123,21,0)"'>RGB</value> |
+			<value class='enum' title='Named color, eg: "black", "white", "red"'>named-color</value> |
+			<value class='string default' title='No color, shows color of element behind it.'>transparent</value> |
+			<value class='string' title=''>inherit</value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:border-right-color' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='border-right-style' categories='appearance border'>
+		<term title='Line style of the right border.'>border-right-style</term>
+		<values>
+			<value class='enum' ref='border-style' title='none|hidden|solid|dotted|dashed|groove|ridge|inset|outset|double'>border-style</value> |
+			<value class='string' title=''>inherit</value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:border-right-style' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='border-right-width' categories='appearance border'>
+		<term title='Width of the right border.'>border-right-width</term>
+		<values>
+			<value class='enum' title='Explicit non-negative size, eg: "2px" or "1cm"'>length</value> |
+			<value class='string' title=''>thin</value> |
+			<value class='string' title=''>medium</value> |
+			<value class='string' title=''>thick</value> |
+			<value class='string' title=''>inherit</value> 
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:border-right-width' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='border-spacing' categories='appearance border spacing table'>
+		<term class='partial' title='Spacing between borders of neighboring table cells (aka "cellspacing"). Not in: IE.'>border-spacing</term>
+		<values>
+			<value class='enum' title='Explicit non-negative size, eg: "2px" or ".1em"'>horizontal-length</value> |
+			<value class='enum' title='Explicit non-negative size, eg: "2px" or ".1em"'>vertical-length</value>?
+		</values>
+		<details>
+			<notes>
+				<note>First value is horizontal position, second is vertical.</note>
+				<note>If one value is provided, that will be used for both.</note>
+				<note>Not implemented in MSIE at all.</note>
+			</note>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:border-spacing' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='border-style' categories='appearance border'>
+		<term title='Set style for up to four sides of the element border.'>border-style</term>
+		<values>
+			<value class='enum' title='1-4 of: none|hidden|solid|dotted|dashed|groove|ridge|inset|outset|double'>border-style</value>{1,4} |
+			<value class='string' title=''>inherit</value>
+		</values>
+		<details>
+			<notes>
+				<note>If one value: that value is used for all four sides.</note>
+				<note>If two values: first is top and bottom, second is left and right.</note>
+				<note>If three values: first is top, second is left and right, third is bottom.</note>
+				<note>If four values: first is top, second is right, third is bottom, fourth is left.</note>
+			</note>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:border-style' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='border-top' categories='appearance border'>
+		<term title='Shorthand for applying many border properties to top side only.'>border-top</term>
+		<values> [
+			<value class='subproperty' title='Width of the border.'>border-width</value> ||
+			<value class='subproperty' title='Style of the border.'>border-style</value> ||
+			<value class='subproperty' title='Color of the border.'>border-color</value> ] |
+			<value class='string' title='Use same value as parent?'>inherit</value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:border-top' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='border-top-color' categories='appearance border'>
+		<term title='Color of the top border.'>border-top-color</term>
+		<values>
+			<value class='enum' title='RGB value, eg: "#1a33e6", "#fff" or "rgb(123,21,0)"'>RGB</value> |
+			<value class='enum' title='Named color, eg: "black", "white", "red"'>named-color</value> |
+			<value class='string default' title='No color, shows color of element behind it.'>transparent</value> |
+			<value class='string' title=''>inherit</value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:border-top-color' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='border-top-style' categories='appearance border'>
+		<term title='Line style of the top border.'>border-top-style</term>
+		<values>
+			<value class='enum' ref='border-style' title='none|hidden|solid|dotted|dashed|groove|ridge|inset|outset|double'>border-style</value> |
+			<value class='string' title=''>inherit</value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:border-top-style' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='border-top-width' categories='appearance border'>
+		<term title='Width of the top border.'>border-top-width</term>
+		<values>
+			<value class='enum' title='Explicit non-negative size, eg: "2px" or "1cm"'>length</value> |
+			<value class='string' title=''>thin</value> |
+			<value class='string' title=''>medium</value> |
+			<value class='string' title=''>thick</value> |
+			<value class='string' title=''>inherit</value> 
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:border-top-width' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='border-width' categories='appearance border'>
+		<term title=''>border-width</term>
+		<values>
+			[
+				<value class='enum' title='Explicit non-negative size, eg: "2px" or "1cm"'>length</value> |
+				<value class='string' title=''>thin</value> |
+				<value class='string' title=''>medium</value> |
+				<value class='string' title=''>thick</value> |
+				<value class='string' title=''>inherit</value> ]{1,4} |
+			<value class='string' title=''>inherit</value> 
+		</values>
+		<details>
+			<notes>
+				<note>If one value: that value is used for all four sides.</note>
+				<note>If two values: first is top and bottom, second is left and right.</note>
+				<note>If three values: first is top, second is left and right, third is bottom.</note>
+				<note>If four values: first is top, second is right, third is bottom, fourth is left.</note>
+			</note>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:border-width' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='bottom' categories='layout appearance'>
+		<term title=''>bottom</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:bottom' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='caption-side' categories=''>
+		<term title=''>caption-side</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:caption-side' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='clear' categories='layout'>
+		<term title=''>clear</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:clear' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='clip' categories='appearance layout'>
+		<term title=''>clip</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:clip' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='color' categories='appearance text'>
+		<term title=''>color</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:color' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='content' categories=''>
+		<term title=''>content</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:content' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='counter-increment' categories=''>
+		<term title=''>counter-increment</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:counter-increment' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='counter-reset' categories=''>
+		<term title=''>counter-reset</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:counter-reset' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='cue' categories=''>
+		<term title=''>cue</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:cue' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='cue-after' categories=''>
+		<term title=''>cue-after</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:cue-after' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='cue-before' categories=''>
+		<term title=''>cue-before</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:cue-before' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='cursor' categories=''>
+		<term title=''>cursor</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:cursor' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='direction' categories=''>
+		<term title=''>direction</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:direction' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='display' categories=''>
+		<term title=''>display</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:display' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='elevation' categories=''>
+		<term title=''>elevation</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:elevation' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='empty-cells' categories=''>
+		<term title=''>empty-cells</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:empty-cells' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='float' categories=''>
+		<term title=''>float</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:float' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='font' categories=''>
+		<term title=''>font</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:font' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='font-family' categories=''>
+		<term title=''>font-family</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:font-family' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='font-size' categories=''>
+		<term title=''>font-size</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:font-size' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='font-size-adjust' categories=''>
+		<term title=''>font-size-adjust</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:font-size-adjust' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='font-stretch' categories=''>
+		<term title=''>font-stretch</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:font-stretch' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='font-style' categories=''>
+		<term title=''>font-style</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:font-style' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='font-variant' categories=''>
+		<term title=''>font-variant</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:font-variant' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='font-weight' categories=''>
+		<term title=''>font-weight</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:font-weight' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='height' categories=''>
+		<term title=''>height</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:height' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='left' categories=''>
+		<term title=''>left</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:left' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='letter-spacing' categories=''>
+		<term title=''>letter-spacing</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:letter-spacing' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='line-height' categories=''>
+		<term title=''>line-height</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:line-height' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='list-style' categories=''>
+		<term title=''>list-style</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:list-style' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='list-style-image' categories=''>
+		<term title=''>list-style-image</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:list-style-image' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='list-style-position' categories=''>
+		<term title=''>list-style-position</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:list-style-position' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='list-style-type' categories=''>
+		<term title=''>list-style-type</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:list-style-type' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='margin' categories=''>
+		<term title=''>margin</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:margin' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='margin-bottom' categories=''>
+		<term title=''>margin-bottom</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:margin-bottom' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='margin-left' categories=''>
+		<term title=''>margin-left</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:margin-left' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='margin-right' categories=''>
+		<term title=''>margin-right</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:margin-right' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='margin-top' categories=''>
+		<term title=''>margin-top</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:margin-top' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='marker-offset' categories=''>
+		<term title=''>marker-offset</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:marker-offset' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='marks' categories=''>
+		<term title=''>marks</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:marks' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='max-height' categories=''>
+		<term title=''>max-height</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:max-height' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='max-width' categories=''>
+		<term title=''>max-width</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:max-width' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='min-height' categories=''>
+		<term title=''>min-height</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:min-height' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='min-width' categories=''>
+		<term title=''>min-width</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:min-width' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='orphans' categories=''>
+		<term title=''>orphans</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:orphans' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='outline' categories=''>
+		<term title=''>outline</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:outline' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='outline-color' categories=''>
+		<term title=''>outline-color</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:outline-color' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='outline-style' categories=''>
+		<term title=''>outline-style</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:outline-style' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='outline-width' categories=''>
+		<term title=''>outline-width</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:outline-width' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='overflow' categories=''>
+		<term title=''>overflow</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:overflow' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='padding' categories=''>
+		<term title=''>padding</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:padding' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='padding-bottom' categories=''>
+		<term title=''>padding-bottom</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:padding-bottom' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='padding-left' categories=''>
+		<term title=''>padding-left</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:padding-left' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='padding-right' categories=''>
+		<term title=''>padding-right</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:padding-right' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='padding-top' categories=''>
+		<term title=''>padding-top</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:padding-top' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='page' categories=''>
+		<term title=''>page</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:page' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='page-break-after' categories=''>
+		<term title=''>page-break-after</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:page-break-after' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='page-break-before' categories=''>
+		<term title=''>page-break-before</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:page-break-before' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='page-break-inside' categories=''>
+		<term title=''>page-break-inside</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:page-break-inside' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='pause' categories=''>
+		<term title=''>pause</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:pause' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='pause-after' categories=''>
+		<term title=''>pause-after</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:pause-after' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='pause-before' categories=''>
+		<term title=''>pause-before</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:pause-before' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='pitch' categories=''>
+		<term title=''>pitch</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:pitch' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='pitch-range' categories=''>
+		<term title=''>pitch-range</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:pitch-range' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='play-during' categories=''>
+		<term title=''>play-during</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:play-during' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='position' categories=''>
+		<term title="Set basis for location of element">position</term>
+		<values>
+				<value class='default' title="No change in positioning.">static</value>
+				<value title="Can move relative to its default location, but still takes up space in page flow.">relative</value>
+				<value title="Positioned in absolute coordinates relative to its containing element.">absolute</value>
+				<value class='partial' title="Fixed to window, regardless of page scrolling.  Not in: IE6-, IE7QM">fixed</value>
+		</values>
+		<details>
+			<refs>
+				<a href="http://www.quirksmode.org/css/position.html" class='quirksmode'>ppk &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='quotes' categories=''>
+		<term title=''>quotes</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:quotes' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='richness' categories=''>
+		<term title=''>richness</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:richness' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='right' categories=''>
+		<term title=''>right</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:right' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='size' categories=''>
+		<term title=''>size</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:size' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='speak' categories=''>
+		<term title=''>speak</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:speak' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='speak-header' categories=''>
+		<term title=''>speak-header</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:speak-header' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='speak-numeral' categories=''>
+		<term title=''>speak-numeral</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:speak-numeral' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='speak-punctuation' categories=''>
+		<term title=''>speak-punctuation</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:speak-punctuation' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='speech-rate' categories=''>
+		<term title=''>speech-rate</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:speech-rate' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='stress' categories=''>
+		<term title=''>stress</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:stress' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='table-layout' categories=''>
+		<term title=''>table-layout</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:table-layout' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='text-align' categories=''>
+		<term title=''>text-align</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:text-align' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='text-decoration' categories=''>
+		<term title=''>text-decoration</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:text-decoration' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='text-indent' categories=''>
+		<term title=''>text-indent</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:text-indent' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='text-shadow' categories=''>
+		<term title=''>text-shadow</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:text-shadow' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='text-transform' categories=''>
+		<term title=''>text-transform</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:text-transform' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='top' categories=''>
+		<term title=''>top</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:top' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='unicode-bidi' categories=''>
+		<term title=''>unicode-bidi</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:unicode-bidi' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='vertical-align' categories=''>
+		<term title=''>vertical-align</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:vertical-align' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='visibility' categories=''>
+		<term title=''>visibility</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:visibility' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='voice-family' categories=''>
+		<term title=''>voice-family</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:voice-family' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='volume' categories=''>
+		<term title=''>volume</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:volume' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='white-space' categories=''>
+		<term title=''>white-space</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:white-space' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='widows' categories=''>
+		<term title=''>widows</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:widows' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='width' categories=''>
+		<term title=''>width</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:width' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='word-spacing' categories=''>
+		<term title=''>word-spacing</term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:word-spacing' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+	<item id='z-index ' categories=''>
+		<term title=''>z-index </term>
+		<values>
+			<value class='' title=''></value>
+		</values>
+		<details>
+			<refs>
+				<a href='http://developer.mozilla.org/en/docs/CSS:z-index ' class='moz'>moz &rarr;</a>
+			</refs>
+		</details>
+	</item>
+	
+		
+</itemlist>
+
+<script language=JavaScript>
+bt.listenByTag("term","click",function(event){
+	var details = bt.childrenByTag(this.parentNode,"details",0);
+	if (details) bt.toggle(details);
+});
+
+bt.listenByTag("item","click",function(event){
+	var children = bt.childrenByTag(this.parentNode, "children", 0);
+	if (children) bt.toggle(children);
+});
+
+
+</script>
+
+</body>
+</html>

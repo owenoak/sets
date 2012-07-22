@@ -1,0 +1,30 @@
+<expander id="Drawable">
+	<drawable #{getAttributes()}>#{value}</drawable>
+</expander>
+
+<expander id="Container">
+	<container #{getAttributes()}></container>
+</expander>
+
+<expander id="HContainer">
+	<hcontainer #{getAttributes()}></hcontainer>
+</expander>
+
+
+<expander id="Label">
+	<span #{getAttributes()}>#{value}</span>
+</expander>
+
+<expander id="Spacer">
+	<spacer @{id} @{className} @{style}></spacer>
+</expander>
+
+<expander id="Notifier">
+	<notifier #{getAttributes()}>
+		<label class='#{state}'>#{value}</label>
+	</notifier>
+</expander>
+
+<expander id='HTable'>
+	<table #{getAttributes()} cellspacing='0' cellpadding='0'><tr></tr></table>
+</expander>

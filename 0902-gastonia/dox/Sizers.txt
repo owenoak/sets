@@ -1,0 +1,43 @@
+/*
+	INTERESTING:
+		- have CSS classes we apply to something to get their min and max?
+
+
+	Resizer Pattern
+		- params:
+				- element or element getter (default is $element)
+				- layout method (default is "dirtyLayout")
+				- edges ("all n s e w ne se nw sw")
+							("all -n -s" ?)
+				- min/max width & height
+				- edge size (default 5 px)
+				- preference name
+				
+		- assumes we call dirtyLayout() to redraw
+		- build in splitter concept as well?
+
+
+	Mover Pattern
+		- params:
+				- element or element getter
+				- titlebar elements
+				- vs anywhere in the bg of the element
+				- minMovesize
+				- offscreen? (eg: can move out of bounds)
+				- snap areas
+		- (bounds set by containing element)
+		
+
+	Splitter Pattern
+		- pattern
+		- params:
+				- direction < h[oriz[ontal]] || v[ert[ical]] >
+				- min/max (percentage? of each piece?)
+				- gutter size (cover any flourishes with a large gutter?)
+				- variable name in object to affect
+		- assumes: we just call layout() to resize after setting var
+						
+		- apply an attribute to an object to make it resizable
+		- interaction with layout?  with resizer?
+
+*/

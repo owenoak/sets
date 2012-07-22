@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "//W3C//DTD HTML 4.01//EN">
+<html>
+<head>
+	<title>Animation Tester</title>
+        
+	<script src='/js/prototype.js'></script>
+	<script src='/js/hope/hope.js'>
+		hope.include("CSSAnimation AnimationStyle");
+	</script>
+	<style type='text/css'>
+		*								{	font-family:Verdana; font-size:12px;	}
+	</style>
+</head>
+<body>
+
+ <span class='HopeLogo'>{<span class='Title'>hope</span>}</span>
+ 
+ <div id='animatron' style='overflow:hidden;position:absolute;left:200px;top:10px;width:200px;height:200px;background-color:blue;'>Animatron</div>
+
+
+<h1>h1.1</h1>
+	<h2>h2.1</h2>
+	<h2>h2.2</h2>
+<h1>h1.2</h1>
+	<h2>h2.3</h2>
+
+
+<script>
+var animatron = $("animatron");
+hope.when("Expander",function(){
+	Expander.include("/test/test.expanders");
+});
+</script>
+</body>
+</html>

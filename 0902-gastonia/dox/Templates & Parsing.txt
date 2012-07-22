@@ -1,0 +1,87 @@
+Templates & Parsing
+
+Observations
+	- about the slowest operation we do is access the dom
+	- we will 99% of the time be doing templates
+		- TemplatedWidget base class
+	- we need the application of custom tags and such to be in document order
+	- we have good DOM string parsers
+	- we want to be able to statically pre-compile and intertwingle templates and classes
+		-assume this is done in JS, either:
+				- on the server, or 
+				- in the browser & cached on the server
+
+
+Heuristic for Compiling Templates
+	- assume that all hope tags are somehow prefixed, either
+			as 		"hopeClass"   
+			or as	"hope:Class"	(nicer but unlikely given the standards)
+
+	- We compile templates into a known format, which features:
+		- a list of hope tags/attributes used in the template
+		- an optimized expander function
+			- allows for simple expressions and method calls
+			- automatically puts try/catches around var substitutions/methods
+			- does some sort of memoization for later auto-updating ?
+			- finds inline scripts and event handlers and hooks them up
+			- finds & hooks up hope classes -> elements in the expansion
+				including possibly hooking up nested templates (see below)
+		- assume that this format can be generated exactly the same offline, in PHP, etc
+		
+	- Then, at run time, expansion of a template is a matter of executing these 
+		optimized functions, which are already in page order.
+
+Hooking up hope classes and methods:
+	- Classes register:
+			- tag and/or attribute names
+			- collection name in js parent target
+			- whether they are binary or unary tags
+			- whether they want to wrap the original contents in their own template
+		
+	- When expanding templates, the 'data' object in Prototype's templates is instead
+		a 'target' that we assign nested classes to
+			? also feature a data object?
+			? have some sort of 'renderProperties' object?
+			
+	- When we're initially parsing a template, pull out each tag
+			- if it is a hope tag
+				- pre-parse all of the attributes
+					- typeize numbers, booleans (arrays?)
+					- ignore hope attributes (see below)
+				- find (and possibly load) the HOPE class associated with that tag
+				- insert a constructor for the hope tag inline in the expander
+					- if the tag has a 'name' property, assign the hope instance to target[name]
+					- if the tag specified a collection, assign to array in target[collection]
+				- if the hope tag has specified that it will templatize contents,
+					we pass the html contents to the constructor
+						(watch out for nested target wierdness)
+					
+			- then, no matter what type of tag it is
+				- check if it has any known hope attributes
+					? prefix 'hope' before tag name:  hopeSpreader, hopeSection ?
+				- pre-parse the attribute value as styles
+				- find and possibly load the HOPE class associated with that attribute
+				
+
+Conventions
+	- the tag and/or attribute name are the same as the name of the hope class
+	- use name spaces to divide the tag space up:
+			- default ns is hope, so   <splitter... >   is implicitly in hope domain
+			- you can declare other name spaces and reference their classes as
+					<app:appClass ...>
+
+Assumptions
+	- assume that we use gears to parse these things during dev?
+	
+
+Open
+	? How can we 
+	? different name than Template so we don't override Prototype's version?
+	? is this a way to easily get HTML 5 tags in the browser now?
+		? how do we keep the functionality the same?
+
+
+Todo
+	- enhance parseAttributes to optionally parse out simple value types like "true" or "20"
+	- Percentage class?
+	- disentangle the base Location class into a couple of hope routines (?)

@@ -1,0 +1,203 @@
+* {
+	font-family:Verdana;
+	-moz-box-sizing: border-box;
+	-opera-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-khtml-box-sizing: border-box;
+	box-sizing: border-box;	
+}
+
+BODY {
+	margin:0px;
+	background-color:CornSilk;
+}
+
+
+#NavBar {
+	position:absolute;
+	top:5px;
+	right:5px;
+	bottom:5px;
+	width:auto;
+	border:1px solid gray;
+	background-color:CornSilk;
+	overflow:hidden;
+	height:20px;
+}
+
+.TopHeader {
+	font-size:x-large;
+	font-weight:bold;
+	background-color:Tan;
+	padding:4px;
+}
+
+
+.NavBarHeader {
+	font-size:bigger;
+	font-weight:bold;
+	background-color:SaddleBrown;
+	color:white;
+	padding:2px;
+}
+
+
+HEADER {
+	display:block;
+	background-color:Tan;
+	font-weight:bold;
+	font-size:1.2em;
+	padding:2px;
+	margin-bottom:2px;
+}
+
+ITEMLIST {
+	display:block;
+	border:1px solid black;
+	padding:10px;
+}
+
+ITEM {
+	display:block;	
+	padding:2px; 
+}
+
+CHILDREN {
+	display:none;
+}
+
+TERM {	
+	cursor:pointer;
+}
+TERM:after {
+	content:":";	
+}
+TERM:hover {
+	border-bottom:1px dotted darkgreen;
+}
+
+VALUES {
+	font-size:smaller;
+}
+VALUE {
+	cursor:default;
+}
+
+
+VALUE.default {	
+	font-weight:bold;	
+}
+VALUE.partial {	
+	color:gray;	
+}
+
+VALUE.string {
+	color:darkblue;
+}
+VALUE.string:before {
+	content:"'";
+	font-weight:normal;
+}
+VALUE.string:after {
+	content:"'";
+	font-weight:normal;
+}
+
+VALUE.enum {
+	color:darkgreen;
+	border-bottom:1px dotted darkgreen;
+}
+VALUE.enum:before {
+	content:"<";
+	font-weight:normal;
+}
+VALUE.enum:after {
+	content:">";
+	font-weight:normal;
+}
+
+VALUE.subproperty {
+	font-style:italic;
+	color:green;
+}
+VALUE.subproperty:hover {
+	border-bottom:1px dotted darkgreen;
+}
+
+SUMMARY {	
+	display:block;	
+	margin-left:20px;
+	font-size:smaller; 
+	color:gray; 
+}
+
+DETAILS {
+	display:none; 
+	margin-left:20px;
+	padding:2px;	
+	border:1px outset gray;
+	-moz-border-radius:2px;
+}
+
+
+ELEMENTS {
+	font-size:smaller;
+}
+ELEMENTS:before {
+	content:"Applies to elements: ";
+	font-weight:bold;
+}
+
+REFS {
+	display:block;
+	font-size:smaller;
+}
+REFS:before {
+	font-weight:bold;
+	content:"References: ";
+}
+REF	{	
+	cursor:pointer;
+	font-size:smaller;
+	color:darkgreen;
+}
+REF:hover {
+	border-bottom:1px dotted darkgreen;
+}
+
+ENUM {
+	display:block;
+	border:1px solid black;
+	padding-bottom:4px;
+	margin:2px;
+}
+
+ENUM VALUES {
+	padding:4px;
+}
+
+NOTES {
+	display:block;
+}
+
+NOTE {
+	display:block;
+	font-size:smaller;
+}
+NOTE:before {
+	content:"Note: ";
+	font-weight:bold;
+}
+
+#angle,
+#audio-location {
+	display:none;
+}
+
+
+.parent {
+	background-image:url(img/plus.gif);
+	padding-left:16px;
+	background-repeat:no-repeat;
+	border:1px solid black;
+}

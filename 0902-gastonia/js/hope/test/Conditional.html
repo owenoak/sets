@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "//W3C//DTD HTML 4.01//EN">
+<html>
+<head>
+	<title>Conditional Tester</title>
+	<script src='/js/prototype.js'></script>
+	<script src='/js/hope/prototype.extensions.js'></script>
+	<script src='/js/hope/Conditional.js'></script>
+	<style type='text/css'>
+		* {	font-family:Verdana; font-size:12px;	}
+	</style>
+</head>
+<body>
+
+<script language='javascript'>
+
+var MyClass = Class.create(
+	{
+		initialize : Object.extendThis,
+		update : function(){console.warn("updating "+this.id)},
+		skipUpdate : function() {console.warn("skipping update for "+this.id);console.dir(this)}
+	}
+);
+var MCP = MyClass.prototype;
+MyClass.prototype.id = "(MyClass.prototype)";
+Conditional.applyTo(MyClass.prototype, {
+							id:"updateIf", 
+							autoInit : true, 
+							condition:{enabled:true}, 
+							onTrue:"update", 
+							onFalse:"skipUpdate",
+							checkEvery : 2,
+							autoStart : false,
+							executeOnChange : false
+						});
+
+
+console.warn("MyClass.prototype");
+console.dir(MyClass.prototype);
+
+var it = new MyClass({id:"it"});
+console.warn("instance it");
+console.dir(it);
+
+
+
+</script>
+</body>
+</html>

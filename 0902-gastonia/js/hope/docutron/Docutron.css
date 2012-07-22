@@ -1,0 +1,309 @@
+/* HACKS */
+splitter	{	display:block; 	}
+spreader	{	display:block;  }
+
+
+
+/******
+ **
+ **		Specific element styling
+ **
+ ******/
+.Docutron * {
+	font-family:Trebuchet MS !important;	
+}
+
+.Docutron {
+	position: absolute;
+	width:600px;
+	height:200px;
+	display: -moz-inline-box; display: inline-block;
+	background:#34230d;
+	-moz-border-radius:1em;
+}
+
+/* shows the selected Thing */
+.Docutron .Thing {
+	margin:2px;
+	background:tan;
+	-moz-border-radius:10px;
+}
+
+.Docutron .ThingContainer {
+	background:#e4ccac;
+	-moz-border-radius:1em;
+}
+
+.Docutron .ThingMenu {
+	font-size:10px;
+	text-align:center;
+	-moz-border-radius:1em;	
+	padding:5px;
+}
+
+.Docutron .ThingMenu A {	
+	color:black;
+	padding:.1em .3em;
+	text-align:center;
+}
+
+.Docutron .ThingMenu A.Selected {
+	color:black;
+	background:beige;
+	text-decoration:none !important;
+	-moz-border-radius:4px;
+}
+
+.Docutron .Thing .ContentsContainer {
+	background:antiquewhite;
+	-moz-border-radius:1em;
+}
+
+.Docutron .Thing .Contents {
+	font-size:10px;
+	margin:5px;
+}
+
+
+
+/* history list */
+.Docutron .History {
+	margin:0px 2px 2px 2px;
+	height:2em; 
+	background:tan;
+	-moz-border-radius:.9em;
+}
+.Docutron .History:before {
+	content:"History:";
+	font-weight:bold;
+	line-height:1.8em;
+	padding-left:1em;
+}
+
+
+
+/* title of something */
+.Docutron .TitleContainer {
+	font-weight:bold;
+	font-size:1.2em;
+	white-space:nowrap;
+	-moz-border-radius:1em 1em 0 0;
+}
+
+.Docutron .Thing .Title {
+	padding:.4em .5em .4em .5em;
+}
+
+
+/* holds details for the selected Thing */
+.Docutron .Detail {
+	margin:2px;
+	background:tan;
+	-moz-border-radius:1em;
+}
+
+.Docutron .Detail .TitleContainer {
+	background:tan;
+}
+
+.Docutron .Detail .Title {
+	padding:.4em .5em .4em .5em;
+	font-size:.8em;
+}
+
+.Docutron .Detail .ContentsContainer {
+	background:antiquewhite;
+	-moz-border-radius:1em;
+}
+
+.Docutron .Detail .Contents {
+	font-size:0.8em;
+	white-space:pre;
+	font-family:monospace;
+	padding:1em;
+	margin:5px;
+}
+
+
+
+
+/* scrolling container */
+.Docutron .Scroller {
+	height:100%;
+	width:100%;
+	overflow:auto;
+}
+
+
+
+
+
+
+/******
+ **
+ **		Generics within the Docutron
+ **
+ ******/
+
+.Docutron DIV {
+	font-size:inherit;
+}
+
+.Docutron A {
+	font-size:inherit;
+	text-decoration:none;
+	color:#000840;
+	white-space:nowrap;
+}
+
+.Docutron A:hover {
+	text-decoration:underline;
+}
+
+.Docutron .label {
+	font-weight:bold;
+	vertical-align:top;
+}
+.Docutron .label:after {
+	content:":";
+}
+
+.Docutron .Expandable {
+	vertical-align:top;
+	overflow:hidden;
+	width:100px;
+	height:1.3em;
+	background:url(/img/arrow/expand_left.gif) bottom right no-repeat;
+}
+
+.Docutron .Expanded {
+	overflow:visible;
+	min-height:1.3em;
+	height:auto;
+	background:url(/img/arrow/expand_down.gif) bottom right no-repeat;
+}
+
+/* horizontal list of things */
+.Docutron .ThingList {
+	font-size:10px;
+}
+
+.Docutron .ColoredThingList {
+	background:tan;
+	padding:2px 1em;
+	-moz-border-radius:50%;
+	margin:0px 3px 3px 3px;
+}
+
+/* vertical list of things */
+.Docutron .ThingLines {
+	white-space:nowrap;	
+	font-size:10px;
+}
+.Docutron .ThingLines A {
+	display:block;
+}
+
+
+
+
+/* put pills around types of things inside ThingLists */
+.Docutron .ThingList A {
+	display: -moz-inline-box; display: inline-block;
+	padding:0px 1em 0px 1em;
+	margin:2px .25em 2px 0em;
+	border:1px solid #ccc;
+	background:#eee;
+	-moz-border-radius:8px;
+}
+
+
+/* add icons to some things */
+.Docutron .ThingList .Class,
+.Docutron .ThingList .Singleton,
+.Docutron .ThingList .Mixin,
+.Docutron .ThingList .Pattern,
+.Docutron .ThingList .Factory,
+.Docutron .ThingList .Location,
+.Docutron .ThingList .Template,
+.Docutron .ThingList .Object,
+.Docutron .ThingList .Array,
+.Docutron .ThingList .Function,
+.Docutron .ThingList .String,
+.Docutron .ThingList .Number,
+.Docutron .ThingList .Boolean,
+.Docutron .ThingList .File,
+.Docutron .ThingList .Element{
+	background-repeat:no-repeat;
+	background-position:left;
+
+	padding:0px 1em 0px 17px;
+	border-left-width:0px;
+}
+
+.Docutron .ThingList .Class 		{	background-image:url(/img/docutron/class.gif);		}
+.Docutron .ThingList .Singleton 	{	background-image:url(/img/docutron/singleton.gif);	}
+.Docutron .ThingList .Mixin 		{	background-image:url(/img/docutron/mixin.gif);		}
+.Docutron .ThingList .Pattern 		{	background-image:url(/img/docutron/pattern.gif);	}
+.Docutron .ThingList .Factory 		{	background-image:url(/img/docutron/factory.gif);	}
+.Docutron .ThingList .Location 		{	background-image:url(/img/docutron/location.gif);	}
+.Docutron .ThingList .Template 		{	background-image:url(/img/docutron/template.gif);	}
+.Docutron .ThingList .Object 		{	background-image:url(/img/docutron/object.gif);		}
+.Docutron .ThingList .Array 		{	background-image:url(/img/docutron/array.gif);		}
+.Docutron .ThingList .Function 		{	background-image:url(/img/docutron/function.gif);	}
+.Docutron .ThingList .String 		{	background-image:url(/img/docutron/string.gif);		}
+.Docutron .ThingList .Number 		{	background-image:url(/img/docutron/number.gif);		}
+.Docutron .ThingList .Boolean 		{	background-image:url(/img/docutron/boolean.gif);	}
+.Docutron .ThingList .Element 		{	background-image:url(/img/docutron/element.gif);	}
+.Docutron .ThingList .File	 		{	background-image:url(/img/docutron/file.gif);		}
+
+.Docutron .ThingList .Inherites		{	color:#999;	}
+
+
+/******
+ **
+ **		Pseudo-widgets
+ **
+ ******/
+
+
+
+/* list of supers */
+.Docutron .Supers {}
+.Docutron .Supers:before {
+	content:"Supers:";
+	font-weight:bold;
+}
+
+/* list of subs */
+.Docutron .Subs {}
+.Docutron .Subs:before {
+	content:"Subs:";
+	font-weight:bold;
+}
+
+
+/* list of requires */
+.Docutron .Requires {}
+.Docutron .Requires:before {
+	content:"Requires:";
+	font-weight:bold;
+}
+
+/* list of styles */
+.Docutron .Styles {}
+.Docutron .Styles:before {
+	content:"Styles:";
+	font-weight:bold;
+}
+
+/* list of expanders */
+.Docutron .Templates {}
+.Docutron .Templates:before {
+	content:"Templates:";
+	font-weight:bold;
+}
+
+
+
+

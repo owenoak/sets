@@ -1,0 +1,42 @@
+What are we after?
+	- want to put together views with XML and have them just work 
+	- want to automatically pull in dependencies
+	- want to be able to read/write XML from a front end
+	- want to quickly get to the point where we're writing tools in the toll
+	- want to be able to build a class by dragging/dropping widgets around & manipulating properties
+	- want to have bespin-like editor for editing scripts in the browser (ala hypercard script editor)
+	
+
+What do we need?
+	- absolutely need to be able to debug user-created JS files normally
+	- classes/etc need to be inspectable
+	
+
+What do we not know how to do?
+	- load/save cycle
+	- discover .js missing/load.xml/munge to .js/save .js/load .js cycle
+	- draw 1-d containers efficiently
+	- draw 2-d grids efficiently
+	- draw repeeating structures efficiently
+	- add/remove things
+
+
+Hybrid model
+	- class def & JS functions live in Class.js
+		+ already working
+		+ no compile for this
+
+	- resources best expressed as XML live in Class.resources
+		- basic stylesheets
+		- templates  (stick into prototype rather than anonymous -- <template id='x' for='Label'/>
+		- "children" for setting children automatically
+
+	- documentation for the class lives in Class.dox (as xml)
+		- build an editor for this
+
+
+Drawing
+	- we'll have mixed text and children
+		- BLARG:  all of our routines can't just loop through children and expect to call a method... :-(
+		- teach children to just output strings as text in their stream
+	- is there ANY way to do H/VContainer and Grid with using a table???

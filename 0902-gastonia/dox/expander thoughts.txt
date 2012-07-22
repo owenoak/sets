@@ -1,0 +1,44 @@
+=== Expander thoughts ===
+
+Enable:
+	- very quick simple var substitution
+	- method substitution, incl. with complex arguments
+	- compiling
+	- expand sub-templates
+	- embed arbitrary JS for loops, etc
+	? auto re-substitute values later
+
+Assumptions
+	- generally will be loading/parsing many templates from a file all at once
+	- templates live in central repository with dotted namespaces (or hope::blah?)
+	- you will generally call the expander with your main object as context
+		(allows you to get messages, etc)
+
+Characteristics of solution
+	- generate optimized function so we can pre-compile
+		- how can we know if pre-compiled available?  depend on jammer for that.
+	- superset of prototype's templates
+
+
+Methodology
+
+	- for all in file, create evaluators, then stick together in a JS script tag
+	
+	- #{...} is (safe) var or fuction substitution
+		- may not be safe for function arguments
+	
+	- <#>...</#> is (unsafe) arbitrary JS embedding
+	
+	- wrap the entire thing in a try/catch?  
+		- only if arbitrary? 
+		- test speed
+
+
+Special functions you can call in expanders:
+	- expand(templateid [,newContext])
+
+
+TODO:
+	- verify that we can insert a script tag with expander functions
+	- Script should be able to parse/insert ala stylesheet
+	- 

@@ -1,0 +1,466 @@
+<class id='Drawable' superclass='BaseClass' requires='AnimationStyle' tagName='Drawable'>
+	<group name='Initialization' summary='Initial setup of the widget and its properties.'>
+		<script>
+			// Initialize the widget.
+			//
+			//	Default convention is that we take a single object with properties that are
+			//	added to this object via this.setProperties().
+			//
+			//	Note: generally, rather than doing any initialization of properties here,
+			//		  you should override the {prepareToDraw()} routine.
+			//
+			function initialize(attributes) {
+				this.attributes = attributes;		// remember our initial attributes for outputting later
+				this.extend(attributes);
+				
+				// if we have a controller, set us as one of their descendants
+				if (this.controller && this.name) this.controller.noteDescendant(this.name, this);
+	
+				// draw immediately if {this.autoDraw == true};
+				if (this.autoDraw) this.draw();
+			}
+		</script>
+	</group>
+
+	<group name='Element Attributes'>
+		<doc>
+			By convention, these properties will be set as attributes on the outer element
+			of the expanded HTML.
+		</doc>
+		<attribute type='string' name="id">
+			<doc>
+				The "id" attribute of the outer element.
+				If set, should be unique for page.
+			</doc>
+			<script>
+				function setId(id) {
+					if (this.id == id) return false;
+					this.id = id;
+					if (this.$element) this.$element.id = id;
+					return true;
+				}
+			</script>
+		</attribute>
+
+		<attribute type='string' name="className">
+			<doc>The CSS "class" attribute of our outer element.</doc>
+			<script>
+				function setClassName(className) {
+					if (Object.isArray(className)) className = className.join(" ");
+					if (this.className == className) return false;
+					this.className = className;
+					if (this.$element) this.$element.className = className;
+					return true;
+				}
+
+				function hasClassName(className) {
+					var classes = this.className.split(/s+/);
+					return (classes.indexOf(className) > -1);
+				}
+				
+				function addClassName(className) {
+					return this.toggleClassName(className, "add");
+				}
+				
+				function removeClassName(className) {
+					return this.toggleClassName(className, "remove");
+				}
+				
+				function toggleClassName(className, action) {
+					var classes = this.className.split(/s+/);
+					var index = classes.indexOf(className);
+					if (!action) action = (index > -1 ? "remove" : "add");
+		
+					if (action == "add" && index == -1) {
+						classes.push(className);
+					} else if (action == "remove" && index != -1) {
+						classes.splice(index, 1);
+					}
+					return this.setClassName(classes.join(" "));
+				}
+			</script>
+		</attribute>
+
+		<attribute type='string' name='style'>
+			<doc>The CSS "style" attribute of the outer element.</doc>
+			<script>
+				function setStyle(style) {
+					if (this.style == style) return false;
+					this.style = style;
+					if (this.$element) this.$element.setStyle(style);
+					return true;
+				}
+			</script>
+		</attribute>
+	</group>
+	
+	<group name='Draw Cycle' summary='"Drawing" a drawable means to render it into HTML on the page.'>
+		<doc>
+			Drawing is actually accomplished in a few routines, so you can plug into the process
+			in a more granular fashion and not worry about sticking your elements into the parent
+			node correctly, etc.  The draw cycle goes like this:
+				* this.prepareToDraw() -- do any prep you need to do before drawing.
+				* this.drawMainElement() -- render your elements and return a pointer to your outer element. 
+												It will be inserted into the parent element automatically.
+				* this.afterDraw() -- do any cleanup, such as hooking up event handlers.
+		</doc>
+		<attribute type='string' name='parentSelector' value='BODY'>
+			<doc>
+				CSS selector used to find our parent element to draw in, if one is not passed to {draw()}.
+			</doc>
+		</attribute>
+		
+		<attribute type='number' name='drawDelay'>
+			<doc>
+				If defined, number of seconds to wait before drawing the widget.
+				Use this to delay actual drawing for a little while after draw() is called,
+				for example, if something needs to initialize before you draw.
+			</doc>
+		</attribute>
+		
+		<attribute type='boolean' name='autoDraw' value='false'>
+			<doc>
+				If true, the drawable will be drawn immediately after being created.
+				If false, you must draw the drawable manually by calling {.draw()}.
+			</doc>
+		</attribute>
+		
+		<script>
+			// Begin the draw cycle.
+			//
+			//	&lt;parent&gt; (optional) is either a parent element or selector to get a parent element.
+			//		If not passed, we consult &lt;this.parentSelector&gt; to find the parent 
+			//		(which defaults to the BODY).
+			//
+			//	Returns &lt;true&gt; if we actually drew, &lt;false&gt; if drawing was deferred.
+			//
+			//	Note that we may not draw immediately when this is called:
+			//		- If this.drawDelay is set, we will defer.
+			//		- If parent can't be found, we will defer until it can be found.
+			//
+			// Note: you generally will not override this 
+			//	-- you will typically override prepareToDraw(), drawWidget() or afterDraw().
+			//
+			function draw(parent) {
+				// if we've already been drawn, redraw instead
+				if (this.$element) return this.redraw();
+				
+				// get the parent (either the one passed in or from our parentSelector)
+				parent = this.getParentElement(parent);
+				
+				// if we couldn't find parent, or we have a built-in drawDelay
+				if (!parent || this.drawDelay != null) {
+					(this.debug.draw && !parent && 
+						console.info(this, ".draw(): Deferring draw because parent not found"));
+					(this.debug.draw && this.drawDelay != null && 
+						console.info(this, ": Deferring draw by ",this.drawDelay," seconds"));
+					// figure out the delay time and draw again in a little bit
+					this.defer("draw", [parent], this.drawDelay || 0);
+					// clear drawDelay so we don't delay next time
+					this.drawDelay = null;
+					
+					// note that we didn't actually draw yet
+					return false;
+				}
+				// otherwise draw now
+				else return this._drawNow(parent);
+			}
+			
+			function _drawNow(parent) {
+				(this.debug.draw && console.group(this, ".draw(): Drawing");
+	
+				this.parent = parent;
+				this.prepareToDraw();
+				this.$element = this.drawMainElement();
+				if (!this.visible) element.style.display = "none";
+				parent.appendChild(element);
+				
+				this.afterDraw();
+				
+				(this.debug.draw && console.groupEnd());
+				// note that we finished drawing successfully
+				return true;
+			}
+			
+			
+			// although the following are stubs, mixins may extend any of them
+			//	so you should go ahead and &lt;$super()&gt; to them.
+			
+			// Prepare to do the actual drawing -- massage/normalize values, etc.
+			function prepareToDraw(parent) {}
+			
+			// Draw the actual element(s) for the widget.
+			// Note: you should set this.$element to the main (outer) element.
+			// The attribute behavior is to expand our outerTemplate if one was defined.
+			function drawMainElement() {
+				if (!this.templateId) 
+					return console.error(this,".drawMainElement(): must set this.templateId"
+											 +" or implement custom drawMainElement()");
+				var template = this.templates.main;
+				if (!template) 
+					return console.error(this,".drawMainElement(): main template not found");
+					
+				return (this.$element = template.toElement(this));
+			}
+			
+			// Do any cleanup after draw
+			afterDraw : function() {
+				if (this.eventHandlers) this.hookupEvents();
+				if (!this.enabled) this.setEnabled();
+			}
+
+
+			// Get our parent element.
+			//	If we've already been drawn, returns the (extended) parentNode of our main element.
+			//	If parent passed in, handles string selector and/or actual element.
+			//	If no parent passed in, returns first match for our parentSelector
+			//		(default parentSelector is body, so generally this means append to the body).
+			function getParentElement(parent) {
+				if (this.$element) return $(this.$element.parentNode);
+				if (parent) {
+					if (typeof parent == "string") this.parentSelector = parent;
+					else return $(parent);
+				}
+				if (this.parentSelector) return $$(this.parentSelector)[0];
+			}
+		</script>
+	</group>
+
+	<group name='Redraw Cycle' summary='Redraw an element which has previously been drawn'>
+		<doc>
+			TODOC:  redraw cycle, scheduleRedraw()
+		</doc>
+		<script>
+			// Begin redraw cycle.
+			//
+			// note: you generally will not override this 
+			//	-- you will typically override this.prepareToDraw(), this.drawWidget() or this.afterDraw()
+			function redraw(properties) {
+				if (properties)	this.setProperties(properties);
+	
+				if (!this.$element) return this.draw();
+				
+				(this.debug.draw && console.group(this, ".redraw(): redrawing"));
+				this.prepareToRedraw();
+				this.redrawElement();
+				this.afterRedraw();
+				(this.debug.draw && console.groupEnd());
+			}
+			
+			// Prepare to do actual redraw.
+			function prepareToRedraw() {}
+			
+			// Do the actual redraw of our element(s).
+			//	If the main element has changed (because it's been replaced), set &lt;this.$element&gt;.
+			function redrawElement() {}
+			
+			// Do any cleanup after redrawing.
+			function afterRedraw() {}
+	
+	
+			// Schedule a redraw at some point in the near future.
+			//	Call this rather than calling redraw() directly if a bunch of things
+			//	may change in the display and you only want to redraw once for all of them.
+			//
+			//	NOTE: due to the nature of this.defer(), only one redraw event can be outstanding
+			//	at any given time, so you can call this many times without worrying about it.
+			//			
+			function scheduleRedraw(properties) {
+				if (properties) this.setProperties(properties);
+	
+				(this.debug.draw && console.info(this, ": Deferring redraw"));
+				this.defer("redraw");
+			}
+		</script>
+	</group>
+
+
+	<group name='Value' summary='"Value" of the element'>
+		<doc>
+			The "value" of the drawable.  
+			* For simple widgets such as {Label}, the value is used as the innerHTML of the widget.
+			* For {Controls} such as {TextField}, the value is the value of the control.
+		</doc>
+		<attribute type='string' name='value'>
+			<script>
+				function setValue(value) {
+					if (this.value == value) return false;
+					this.value = value;
+					return true;
+				}
+			</script>
+		</attribute>	
+	</group>
+
+
+	<group name='Enable' summary='Enabled/disabled flag'>
+		<doc>
+			Disabled drawables don't generally respond to mouse events and are
+			often shown in a different fashion to inidicate that they are disabled.
+			
+			Setting {enabled=false} will add the "disabled" attribute to our outer element.
+		</doc>
+		<attribute type='boolean' name='enabled' value='true'>
+			<script>
+				function setEnabled(enabled) {
+					if (this.enabled == enabled) return false;
+					this.enabled = (enabled != false);
+					if (this.$element) this.$element.setAttribute("disabled", !this.enabled);
+					return true;
+				}
+				
+				function enable() {
+					this.setEnabled(false);
+				}
+				
+				function disable() {
+					this.setEnabled(true);
+				}
+			</script>
+		</attribute>	
+	</group>
+	
+	
+	<group name='Visible' summary='Visibility of the elements'>
+		<attribute type='boolean' name='visible' value='true'>
+			<script>
+				function setVisible(visible, callback, skipAnimation) {
+					if (this.visible == visible) return false;
+					if (visible !== undefined) this.visible = (visible == true);
+					if (this.$element) {
+						var animation = (this.visible ? "showAnimation" : "hideAnimation");
+						if (skipAnimation != true && this[animation]) {
+							this[animationName] = this.animate(this[animation], callback);
+						} else {
+							if (this.visible) 	this.$element.style.display = "";
+							else				this.$element.style.display = "none";
+							if (callback) callback();
+						}
+					}
+					return true;
+				}
+				
+				function show() {
+					this.setVisible(true);
+				}
+				
+				function hide() {
+					this.setVisible(false);
+				}
+			</script>
+		</attribute>
+		
+		<attribute type='AnimationStyle' name='showAnimation'>
+			<doc>
+				{AnimationStyle} to use to show the widget.  
+				If not specified, the widget will be shown without any animation.
+			</doc>
+			<script>
+			
+			</script>
+		</attribute>
+		<attribute type='AnimationStyle' name='hideAnimation'>
+			<doc>
+				{AnimationStyle} to use to hide the widget.  
+				If not specified, the widget will be hidden without any animation.
+			</doc>		
+		</attribute>
+	</group>
+	
+	
+	<group name='EventHandlers' summary='Handling mouse and keyboard events'>
+		<doc>
+			When assigned, event handlers are assigned to our outer element and bound to us.
+		</doc>
+		<eventHandler event='onmouseover'/>
+		<eventHandler event='onmouseout'/>
+		<eventHandler event='onmousedown'/>
+		<eventHandler event='onmouseup'/>
+		<eventHandler event='onclick'/>
+		<eventHandler event='onkeydown'/>
+		<eventHandler event='onkeypress'/>
+		<eventHandler event='onkeyup'/>
+		
+		<script>
+			function _makeEventHandler(name) {
+				return this.globalRef() + "." + name + "(event||window.event, this)";
+			}
+		
+			function addEventHandler(name, method) {
+				if (!this.hasOwnProperty("eventHandlers")) 
+					this.eventHandlers = (this.eventHandlers ? hope.protoClone(this.eventHandlers) : {});
+				this.eventHandlers[name] = method;
+
+				if (this.$element) {
+					this[name] = method;
+					this.$element[name] = new Function("event,target", _makeElementHandler(name));
+				}
+			}
+			
+			function outputEventHandlers() {
+				var handlers = this.eventHandlers;
+				if (!handlers) return "";
+				
+				var output = [], 
+				for (var name in handlers) {
+					this[name] = method;
+					output.push(name+'="'+_makeElementHandler(name)+'"');
+				}
+				return output.join(" ");
+			}
+		</script>
+	</group>
+
+
+	<group name='Animation'>
+		<script>
+			//////
+			//
+			// 	Animation 
+			//
+			//		We only allow one animation to run at a time,
+			//			so if a second wants to start, we stop the running animation first.
+			//
+			//////
+			
+			function animate(animation, callback, element) {
+				if (!animation) return null;
+				
+				if (this._currentAnimation && this._currentAnimation.state == "running") {
+					this._currentAnimation.stop();
+				}
+				if (!element) element = this.$element;
+				
+				if (typeof animation == "string") {
+					try {
+						animation = AnimationStyle.parse(animation, element, callback, false);
+					} catch (e) {
+						console.error(this,".animate():", e);
+					}
+				}
+	
+				return (this._currentAnimation = animation.start(null, callback));
+			}
+		</script>
+	</group>	
+	
+	<group name='Misc'>
+		<attribute type='string' name='name'>
+			<doc>
+				Name of the widget, used to identify us to our controller.
+			</doc>
+			<script>
+				function(name) {
+					if (this.name == name) return false;
+					this.name = name;
+					if (this.controller) this.controller.addDescendant(this, name);
+					return true;
+				}
+			</script>
+		</attribute>
+	</group>
+	
+	<template id='main'>
+		<drawable @{id} @{className} @{style} @{events} @{hookup:$value}>#{value}</drawable>	
+	</template>
+</class>

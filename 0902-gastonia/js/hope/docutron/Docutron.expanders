@@ -1,0 +1,143 @@
+<expander id='DocutronMain'>
+	<div id='Docutron' class='Docutron'>
+		<spreader direction="vertical" sizes="*,auto">
+			<splitter class='Splitter' name='hsplit' direction="h" split='50'>
+				<div class='Thing' spreader='direction:vertical;sizes:auto,100%'>
+					<div class='TitleContainer'><div class='Title'></div></div>
+					<div class='ThingContainer' spreader='direction:vertical;sizes:auto,100%'>
+						<div class='MenuList ThingMenu'></div>
+						<div class='ContentsContainer'>
+							<div class='Contents ThingList Scroller' filler="true"></div>
+						</div>
+					</div>
+				</div>
+				<div class='Detail' style='Xdisplay:none' spreader='direction:vertical;sizes:auto,100%'>
+					<div class='TitleContainer'><div class='Title'>&nbsp;</div></div>
+					<div class='ContentsContainer'>
+						<div class='Contents Scroller' filler="true"></div>
+					</div>
+				</div>
+			</splitter>
+			<div class='History'>
+				<span class='ThingList'></span>
+			</div>
+		</spreader>
+	</div>
+</expander>
+
+
+
+
+
+<expander id='DocutronThingTitle'>
+	{Docutron} #{type} <a class='#{type}' href='javascript:hope.Docutron.select("#{globalRef}")'>#{id}</a>
+</expander>
+
+<expander id='DocutronHopeTitle'>
+	{Docutron} <a class='#{type}' href='javascript:hope.Docutron.select("#{globalRef}")'>#{id}</a>
+</expander>
+
+
+<expander id='DocutronHopeMenu'>
+	<a href='javascript:hope.Docutron.selectDetails("Things")' ref='Things'>Things</a>
+	<a href='javascript:hope.Docutron.selectDetails("Classes")' ref='Classes'>Classes</a>
+	<a href='javascript:hope.Docutron.selectDetails("Singletons")' ref='Singletons'>Singletons</a>
+	<a href='javascript:hope.Docutron.selectDetails("Mixins")' ref='Mixins'>Mixins</a>
+	<a href='javascript:hope.Docutron.selectDetails("Patterns")' ref='Patterns'>Patterns</a>
+	<a href='javascript:hope.Docutron.selectDetails("Factories")' ref='Factories'>Factories</a>
+	<a href='javascript:hope.Docutron.selectDetails("Locations")' ref='Locations'>Locations</a>
+	<a href='javascript:hope.Docutron.selectDetails("Templates")' ref='Templates'>Templates</a>
+	<a href='javascript:hope.Docutron.selectDetails("Defaults")' ref='Defaults'>Defaults</a>
+	<a href='javascript:hope.Docutron.selectDetails("Methods")' ref='Methods'>Methods</a>
+</expander>
+
+
+<expander id='DocutronClassMenu'>
+	<a href='javascript:hope.Docutron.selectDetails("Inheritance")' ref='Inheritance'>Inheritance</a>
+	<a href='javascript:hope.Docutron.selectDetails("PrototypeDefaults")' ref='PrototypeDefaults'>Defaults</a>
+	<a href='javascript:hope.Docutron.selectDetails("PrototypeMethods")' ref='PrototypeMethods'>Methods</a>
+	<a href='javascript:hope.Docutron.selectDetails("Defaults")' ref='Defaults'>ClassDefaults</a>
+	<a href='javascript:hope.Docutron.selectDetails("Methods")' ref='Methods'>ClassMethods</a>
+	<a href='javascript:hope.Docutron.selectDetails("Instances")' ref='Instances'>Instances</a>
+</expander>
+
+<expander id='DocutronSingletonMenu'>
+	<a href='javascript:hope.Docutron.selectDetails("Inheritance")' ref='Inheritance'>Inheritance</a>
+	<a href='javascript:hope.Docutron.selectDetails("Defaults")' ref='Defaults'>Defaults</a>
+	<a href='javascript:hope.Docutron.selectDetails("Methods")' ref='Methods'>Methods</a>
+</expander>
+
+<expander id='DocutronMixinMenu'>
+	<a href='javascript:hope.Docutron.selectDetails("Inheritance")' ref='Inheritance'>Inheritance</a>
+	<a href='javascript:hope.Docutron.selectDetails("Defaults")' ref='Defaults'>Defaults</a>
+	<a href='javascript:hope.Docutron.selectDetails("Methods")' ref='Methods'>Methods</a>
+</expander>
+
+<expander id='DocutronPatternMenu'>
+	<a href='javascript:hope.Docutron.selectDetails("Inheritance")' ref='Inheritance'>Inheritance</a>
+	<a href='javascript:hope.Docutron.selectDetails("Defaults")' ref='Defaults'>Defaults</a>
+	<a href='javascript:hope.Docutron.selectDetails("Methods")' ref='Methods'>Methods</a>
+</expander>
+
+<expander id='DocutronFactoryMenu'>
+	<a href='javascript:hope.Docutron.selectDetails("Inheritance")' ref='Inheritance'>Inheritance</a>
+	<a href='javascript:hope.Docutron.selectDetails("Defaults")' ref='Defaults'>Defaults</a>
+	<a href='javascript:hope.Docutron.selectDetails("Methods")' ref='Methods'>Methods</a>
+</expander>
+
+<expander id='DocutronUnknownMenu'>
+	No menu defined for #{type}.
+</expander>
+
+
+
+<expander id='DocutronInheritance'>
+	<div class='Supers ThingList ColoredThingList'>
+		<a href='#' class='Class' ref='hope.Classes.'>Widget</a>
+		<a href='#' class='Mixin' ref='hope.Mixins.'>Popup</a>
+		<a href='#' class='Pattern' ref='hope.Patterns.'>HasChildren</a>
+	</div>
+	<div class='Subs ThingList ColoredThingList'>
+		<a href='#' class='Class' ref='hope.Classes.'>ContextMenu</a>
+	</div>
+	<div class='Requires ThingList ColoredThingList'></div>
+	<div class='Templates ThingList ColoredThingList'></div>
+	<div class='Styles ThingList ColoredThingList'></div>
+</expander>
+
+<expander id='DocutronUnknownThing'>
+	Don't know how to draw thing #{globalRef} of type #{type}.
+</expander>
+
+<expander id='DocutronUnknownThingDetails'>
+	Don't know how to draw details of #{globalRef} (type #{type}).
+</expander>
+
+
+
+
+
+
+<expander id='DocutronThingList'>
+	<div class='#{listName} ThingList'>#{listHTML}</div>
+</expander>
+
+<expander id='DocutronColoredThingList'>
+	<div class='#{id} ThingList ColoredThingList'>#{listHTML}</div>
+</expander>
+
+<expander id='DocutronThingListItem'>
+	<a href='javascript:hope.Docutron.select("#{globalRef}")' class='#{type} #{inherited}'>#{id}</a>
+</expander>
+
+<expander id='DocutronFileListItem'>
+	<a href='javascript:hope.Docutron.selectFile("#{url}")' class='File'>#{url}</a>
+</expander>
+
+
+
+
+<expander id='DocutronDetailItem'>
+	<a href='javascript:hope.Docutron.selectDetail("#{globalRef}","#{key}","#{type}")' title='#{value}' class='#{type}'>#{key}</a>
+</expander>
+

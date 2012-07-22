@@ -1,0 +1,17 @@
+Things we understand
+
+
+	Class		-- creates a new inheritable instance
+				-- initialized as new Class(...)
+				
+	Factory		-- creates a thing (which is not new() able)
+				-- applied as Factory.create(...)
+
+	Mixin		-- applies one or more methods/properties to something
+				-- applied as  Mixin.applyTo(it, ...)
+				
+	
+	Pattern		-- applies one or more methods/properties to something
+					where the methods/properties are not static,
+					but are determined according to some paramers
+					set when applied to the object

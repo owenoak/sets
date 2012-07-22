@@ -1,0 +1,37 @@
+Markdown additions
+	* Some easier-to-type version of inline code thinger?
+		<blah blah> is natural, but conflicts with inlining html
+
+	* Allow "-" and "+" for lists
+
+	* "." at beginning of line means skip a paragraph in output
+		Blah blah blah.
+		.Blah blah blah
+
+	* function listing listing:
+		//// hope.extendList(`it`:object, `list`:[objects], `startAt`:number:0:optional) => object
+		//	Summary of the function.
+		//	More details about the function.
+		//	:Parameters:
+		//	: it			Object to add properties *to*.
+		//	: list 			Array of one or more properties objects to pull properties *from*.
+		//	: startAt 		Index in the `list` to start pulling objects from.
+		//	: returns 		Extended object, `it`.
+
+
+	* Use indentation to indicate part of the same paragraph/new paragraph
+		Blah blah blah
+		 blah blah.
+		New paragraph of blah
+	
+	* Example
+	// 	Blah blah blach.
+	//	eg.		Stuff here which is put 
+	//			into a code block automatically
+	//	Ends with non-indented.
+	
+	
+	* can we do table formatting with indentation?
+	
+	* TODO and TODOC notes
+	* NOTE: ...
